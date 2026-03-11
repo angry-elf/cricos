@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}500 - {% trans "Server Error" %}{% endblock %}
+{% block content %}
+<div class="container text-center">
+    <h1 class="display-1">500</h1>
+    <p class="lead">{% trans "Server Error" %}</p>
+    <a href="/" class="btn btn-primary">{% trans "Back to Home" %}</a>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 i18n %}
+{% block title %}{% trans "Edit blog" %}{% endblock %}
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url 'blogs' %}">Guides</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit guide</li>
+{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2>{% trans "Edit blog" %}</h2>
+        <form method="post" id="blog-form">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name == 'content' %}
+                    <div class="mb-3">
+                        <label for="editorjs" class="form-label">{{ field.label }}</label>
+                        <div id="editorjs" class="border border-1 rounded bg-light"></div>
+                        <div class="form-text">{{ field.help_text }}</div>
+                        {{ field }}
+                    </div>
+                {% else %}
+                    {% bootstrap_field field %}
+                {% endif %}
+            {% endfor %}
+
+            <div class="d-grid gap-2">
+                {% bootstrap_button button_type="submit" content=_("Save") %}
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/raw@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/attaches@latest"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const editor = new EditorJS({
+        holder: 'editorjs',
+        tools: {
+            header: Header,
+            image: {
+                class: ImageTool,
+                config: {
+                    endpoints: {
+                        byFile: "{% url 'image_upload' %}",
+                        byUrl: 'http://localhost:8008/fetchUrl',
+                    }
+                }
+            },
+            list: {
+                class: EditorjsList,
+                inlineToolbar: true,
+            },
+            quote: Quote,
+            marker: Marker,
+            code: CodeTool,
+            delimiter: Delimiter,
+            embed: Embed,
+            table: Table,
+            raw: RawTool,
+        },
+        data: {{ post.content|default:"{}"|safe }}
+    });
+
+    document.getElementById('blog-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        editor.save().then((outputData) => {
+            document.getElementById('content-data').value = JSON.stringify(outputData);
+            this.submit();
+        }).catch((error) => {
+            console.error('Saving failed:', error);
+        });
+    });
+});
+</script>
+{% endblock %}

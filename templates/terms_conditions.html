@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Terms and Conditions{% endblock %}
+
+{% block head %}
+<meta name="description" content="Terms and Conditions for using CRICOS Finder.">
+<meta name="keywords" content="terms and conditions, user agreement, CRICOS Finder">
+<meta property="og:title" content="Terms and Conditions">
+<meta property="og:description" content="Rules for using CRICOS Finder.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}"><link rel="canonical" href="{{ request.build_absolute_uri }}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">Terms and Conditions</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <h1 class="h3 mb-3">Terms and Conditions</h1>
+        <p class="text-muted">Last updated: 6 March 2026</p>
+
+        <section class="mb-4">
+            <h2 class="h5">1. Acceptance of terms</h2>
+            <p>
+                By using CRICOS Finder, you agree to these terms. If you do not agree, please stop using the site.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">2. Service scope</h2>
+            <p>
+                CRICOS Finder provides informational search results about providers, courses, cities and locations.
+                It is not legal, migration, or educational advice.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">3. Data and accuracy</h2>
+            <p>
+                We aim to keep data useful and current, but we do not guarantee full completeness or accuracy at all times.
+                Users should verify critical details with official sources.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">4. Permitted use</h2>
+            <ul>
+                <li>You may browse and use the site for personal or internal business research.</li>
+                <li>You may not abuse, disrupt, scrape excessively, or attempt unauthorized access.</li>
+            </ul>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">5. Intellectual property</h2>
+            <p>
+                Site content, structure and presentation may be protected by intellectual property laws.
+                Reuse is allowed only where legally permitted or with permission.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="h5">6. Changes to terms</h2>
+            <p class="mb-0">
+                Terms may be updated at any time. Continued use of the site means you accept the latest version.
+            </p>
+        </section>
+    </div>
+</div>
+{% endblock %}

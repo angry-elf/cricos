@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}400 - {% trans "Bad Request" %}{% endblock %}
+{% block content %}
+<div class="container text-center">
+    <h1 class="display-1">400</h1>
+    <p class="lead">{% trans "Bad Request" %}</p>
+    <a href="/">{% trans "Back to Home" %}</a>
+</div>
+{% endblock %}

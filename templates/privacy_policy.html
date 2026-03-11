@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy{% endblock %}
+
+{% block head %}
+<meta name="description" content="Privacy Policy for CRICOS Finder. Learn what data is collected and how it is used.">
+<meta name="keywords" content="privacy policy, CRICOS Finder, data collection, cookies, analytics">
+<meta property="og:title" content="Privacy Policy">
+<meta property="og:description" content="How CRICOS Finder collects and uses data.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}"><link rel="canonical" href="{{ request.build_absolute_uri }}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">Privacy Policy</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <h1 class="h3 mb-3">Privacy Policy</h1>
+        <p class="text-muted">Last updated: 6 March 2026</p>
+
+        <section class="mb-4">
+            <h2 class="h5">1. Information we collect</h2>
+            <ul>
+                <li>Search queries entered in city and course fields.</li>
+                <li>Basic technical and usage data (browser, device type, pages visited).</li>
+                <li>Anonymous analytics data for site performance.</li>
+            </ul>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">2. How we use the data</h2>
+            <ul>
+                <li>Show relevant search results for courses, cities and providers.</li>
+                <li>Improve result quality, usability and page speed.</li>
+                <li>Monitor reliability and prevent abuse.</li>
+            </ul>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">3. Cookies</h2>
+            <p>
+                Cookies may be used for analytics and session functionality. You can control cookies in your browser settings.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">4. Third-party services</h2>
+            <p>
+                We may use third-party analytics or hosting services. Their data handling is governed by their own privacy policies.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">5. Data security</h2>
+            <p>
+                Reasonable technical and organizational measures are used to protect data. No online system is completely risk-free.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="h5">6. Policy updates</h2>
+            <p class="mb-0">
+                This policy may be updated from time to time. The latest version is always published on this page.
+            </p>
+        </section>
+    </div>
+</div>
+{% endblock %}

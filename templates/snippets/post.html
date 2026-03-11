@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<div class="col-md-6 col-lg-4 mb-4">
+    <div class="card h-100">
+        <div class="card-body">
+            {% if request.user.is_staff and post.publish_date > now %}
+                <div class="alert alert-warning fw-bold">
+                    {% trans "Publish date" %}: {{ post.publish_date|date:"DATE_FORMAT" }}
+                </div>
+            {% endif %}
+
+            <h2 class="h5 card-title">
+                <a href="{{ post.get_absolute_url }}" class="text-decoration-none">
+                    {{ post.title }}
+                </a>
+            </h2>
+            <p class="card-text text-muted small">
+                {{ post.publish_date|date:"DATE_FORMAT" }}
+            </p>
+            <p class="card-text">
+                {{ post.editorjs_to_html|safe|truncatewords_html:70 }}
+            </p>
+        </div>
+        <div class="card-footer bg-white border-0">
+            <a href="{{ post.get_absolute_url }}" class="btn btn-sm btn-outline-primary">
+                {% trans "Read more" %}
+            </a>
+        </div>
+    </div>
+</div>

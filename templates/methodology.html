@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}{{ seo_title|default:"CRICOS Finder Methodology" }}{% endblock %}
+
+{% block head %}
+<meta name="description" content="{{ seo_description|default:'How CRICOS Finder imports, structures and presents publicly available CRICOS data.' }}">
+
+<link rel="canonical" href="{{ canonical_url }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ seo_title }}">
+<meta property="og:description" content="{{ seo_description }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ seo_title }}">
+<meta name="twitter:description" content="{{ seo_description }}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">Methodology</li>
+{% endblock %}
+
+{% block content %}
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h1 class="h3 mb-2">Methodology</h1>
+        <p class="mb-3">
+            CRICOS Finder processes publicly available CRICOS records into searchable pages by provider, city and study area.
+        </p>
+        <ol class="mb-3">
+            <li>Import the latest available CRICOS dataset.</li>
+            <li>Normalize providers, courses and campus locations.</li>
+            <li>Generate searchable pages and internal links for city, provider and course intent.</li>
+            <li>Display data as reference content and link users to official sources for final checks.</li>
+        </ol>
+        <ul class="mb-0 small text-muted">
+            <li>Last updated: {% if data_last_updated %}{{ data_last_updated|date:"F j, Y" }}{% else %}Not available{% endif %}</li>
+            <li>Dataset file: {% if dataset %}{{ dataset.source_file_name|default:"Not available" }}{% else %}Not available{% endif %}</li>
+            <li>Source details: <a href="{% url 'data_source' %}">Data Source</a></li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

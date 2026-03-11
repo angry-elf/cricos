@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ record.id }} / {% trans "Journal" %} / {% endblock %}
+
+{% block breadcrumbs %}
+    <li class="breadcrumb-item"><a href="{% url "journal" %}">{% trans "Journal" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ log.id }}</li>
+{% endblock %}
+
+{% block content %}
+<table class="table table-compact">
+    <tbody>
+        <tr>
+            <th>{% trans "ID" %}</th>
+            <td>{{ log.id }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Date" %}</th>
+            <td>{{ log.date }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Company" %}</th>
+            <td>{% if log.company %}{{ log.company }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>{% trans "User" %}</th>
+            <td>{% if log.user %}{{ log.user }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Module" %}</th>
+            <td>{{ log.module }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Submodule" %}</th>
+            <td>{{ log.submodule }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Object" %}</th>
+            <td>
+                {% if url %}
+                    <a href="{{ url }}">{{ log.object_id }}</a>
+                {% else %}
+                    {{ log.object_id }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>{% trans "Message" %}</th>
+            <td>{{ log.message }}</td>
+        </tr>
+        <tr>
+            <th>{% trans "Data" %}</th>
+            <td>{{ log.data|default_if_none:"&ndash;" }}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

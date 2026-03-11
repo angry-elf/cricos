@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}All CRICOS Providers and Provider Codes in Australia{% endblock %}
+
+{% block head %}
+<meta name="description" content="Directory of CRICOS providers in Australia with provider codes and active courses.">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="All CRICOS Providers and Provider Codes in Australia">
+<meta property="og:description" content="Directory of CRICOS providers in Australia with provider codes and active courses.">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="All CRICOS Providers and Provider Codes in Australia">
+<meta name="twitter:description" content="Directory of CRICOS providers in Australia with provider codes and active courses.">
+{% endblock %}
+
+{% block breadcrumbs %}
+{% if page_obj.number > 1 %}
+<li class="breadcrumb-item"><a href="{% url 'providers' %}">Providers</a></li>
+<li class="breadcrumb-item active" aria-current="page">Page {{ page_obj.number }}</li>
+{% else %}
+<li class="breadcrumb-item active" aria-current="page">Providers</li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<header class="mb-3">
+    <h1 class="h3 mb-1">All CRICOS Providers</h1>
+    <p class="text-muted mb-0">Total providers: {{ page_obj.paginator.count }}</p>
+</header>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Provider Code</th>
+                        <th>Cities</th>
+                        <th>Type</th>
+                        <th class="text-end">Active Courses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for provider in page_obj.object_list %}
+                    <tr>
+                <td><a href="{% url 'provider' provider.provider_code %}">{{ provider.institution_name }}</a></td>
+                <td>{{ provider.provider_code }}</td>
+                        <td class="small">
+                            {% if provider.locations %}
+                                {% for location in provider.locations %}
+                                    {% if not forloop.first %}, {% endif %}
+                                    {% if location.city %}
+                                        <a href="{% url 'search' city_slug=location.city|slugify %}">{{ location.city|title }}</a>
+                                    {% elif location.location_name %}
+                                        {{ location.location_name }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                <td class="small">{{ provider.institution_type }}</td>
+                <td class="small text-end">{{ provider.active_courses_count|intcomma }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% include "snippets/pagination.html" %}
+    </div>
+</section>
+{% endblock %}

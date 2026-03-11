@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}CRICOS Data Source and Accuracy{% endblock %}
+
+{% block head %}
+<meta name="description" content="How CRICOS Finder uses publicly available CRICOS data and how to verify important details.">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CRICOS Data Source and Accuracy">
+<meta property="og:description" content="How CRICOS Finder uses publicly available CRICOS data and how to verify important details.">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CRICOS Data Source and Accuracy">
+<meta name="twitter:description" content="How CRICOS Finder uses publicly available CRICOS data and how to verify important details.">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">Data Source</li>
+{% endblock %}
+
+{% block content %}
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h1 class="h3 mb-2">Data source and accuracy</h1>
+        <p class="mb-2">
+            CRICOS Finder is built for easier exploration of publicly available CRICOS data. Course availability, fees, durations and locations may change.
+            Always verify important details with the official government source or the provider before applying.
+        </p>
+        <ul class="mb-3">
+            <li>Official source: <a href="https://cricos.education.gov.au/" target="_blank" rel="noopener noreferrer nofollow external" referrerpolicy="no-referrer">CRICOS official register</a></li>
+            <li>Last updated: {% if dataset.dataset_datetime %}{{ dataset.dataset_datetime|date:"F j, Y" }}{% elif dataset.imported_at %}{{ dataset.imported_at|date:"F j, Y" }}{% else %}Not available{% endif %}</li>
+            <li>Dataset file: {% if dataset %}{{ dataset.source_file_name|default:"Not available" }}{% else %}Not available{% endif %}</li>
+        </ul>
+
+        <h2 class="h5 mb-2">Related methodology</h2>
+        <p class="mb-0">
+            This project indexes the latest imported CRICOS dataset and offers search by city, provider and keyword.
+            For processing details, see <a href="{% url 'methodology' %}">Methodology</a>.
+        </p>
+    </div>
+</section>
+{% endblock %}

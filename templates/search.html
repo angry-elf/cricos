@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}
+{% if city and course %}{{ course|title }} Courses in {{ city|title }} | CRICOS
+{% elif city %}CRICOS Courses in {{ city|title }}
+{% else %}Search CRICOS Courses and Providers
+{% endif %}
+{% endblock %}
+
+{% block head %}
+<meta name="description" content="{% if city and course %}CRICOS-listed {{ course|lower }} courses and providers in {{ city|title }}.{% elif city %}CRICOS courses and providers in {{ city|title }}.{% else %}Search CRICOS-listed providers and courses by city, keyword or study area in Australia.{% endif %}">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{% if city and course %}{{ course|title }} Courses in {{ city|title }} | CRICOS{% elif city %}CRICOS Courses in {{ city|title }}{% else %}Search CRICOS Courses and Providers{% endif %}">
+<meta property="og:description" content="{% if city and course %}CRICOS-listed {{ course|lower }} courses and providers in {{ city|title }}.{% elif city %}CRICOS courses and providers in {{ city|title }}.{% else %}Search CRICOS-listed providers and courses by city, keyword or study area in Australia.{% endif %}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% if city and course %}{{ course|title }} Courses in {{ city|title }} | CRICOS{% elif city %}CRICOS Courses in {{ city|title }}{% else %}Search CRICOS Courses and Providers{% endif %}">
+<meta name="twitter:description" content="{% if city and course %}CRICOS-listed {{ course|lower }} courses and providers in {{ city|title }}.{% elif city %}CRICOS courses and providers in {{ city|title }}.{% else %}Search CRICOS-listed providers and courses by city, keyword or study area in Australia.{% endif %}">
+{% endblock %}
+
+{% block breadcrumbs %}
+{% if city and course %}
+<li class="breadcrumb-item"><a href="{% url 'cities' %}">Cities</a></li>
+<li class="breadcrumb-item"><a href="{% url 'search' city_slug=city|slugify %}">{{ city|title }}</a></li>
+<li class="breadcrumb-item active" aria-current="page">{{ course|title }} courses</li>
+{% elif city %}
+<li class="breadcrumb-item"><a href="{% url 'cities' %}">Cities</a></li>
+<li class="breadcrumb-item active" aria-current="page">{{ city|title }}</li>
+{% elif course %}
+<li class="breadcrumb-item"><a href="{% url 'search' %}">Search</a></li>
+<li class="breadcrumb-item active" aria-current="page">{{ course|title }}</li>
+{% else %}
+<li class="breadcrumb-item active" aria-current="page">Search</li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        {% if city and course %}
+        <h1 class="h3 mb-2">{{ course|title }} Courses in {{ city|title }}</h1>
+        {% elif city %}
+        <h1 class="h3 mb-2">CRICOS Courses in {{ city|title }}</h1>
+        {% else %}
+        <h1 class="h3 mb-2">Find CRICOS courses, providers and study locations in Australia</h1>
+        {% endif %}
+        <p class="text-muted mb-3">Search official CRICOS-listed education providers and courses by city, study area or institution.</p>
+
+        {% include "snippets/search_panel.html" %}
+    </div>
+</section>
+
+{% if not city and not course %}
+<div class="alert alert-secondary">Enter a city or keyword to start searching.</div>
+{% endif %}
+
+{% if page_obj and page_obj.object_list %}
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+            <h2 class="h5 mb-0">Search Results</h2>
+            <span class="badge text-bg-light border">Courses: {{ page_obj.paginator.count|intcomma }}</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Course</th>
+                        <th>City</th>
+                        <th class="text-end">Campuses</th>
+                        <th class="text-end">Fee (AUD)</th>
+                        <th class="text-end">Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in page_obj.object_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'provider' row.provider_code %}">{{ row.institution.institution_name }}</a>
+                            <div class="small text-muted">Provider {{ row.provider_code }}</div>
+                        </td>
+                        <td>
+                            <a href="{% url 'course_detail' row.provider_code row.course_code %}">{{ row.course_name }}</a>
+                            <div class="small text-muted">Code {{ row.course_code }}</div>
+                        </td>
+                        <td class="small">
+                            {% if row.course_locations %}
+                                {% for location in row.course_locations %}
+                                    {% if not forloop.first %}, {% endif %}
+                                    {% if location.location_city %}
+                                        <a href="{% url 'search' city_slug=location.location_city|slugify %}">{{ location.location_city|title }}</a>
+                                    {% elif city %}
+                                        {{ city|title }}
+                                    {% elif location.location_name %}
+                                        {{ location.location_name }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                {% endfor %}
+                            {% elif city %}
+                                {{ city|title }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="small text-end">
+                            {{ row.campuses_count|intcomma }}
+                        </td>
+                        <td class="small text-end">{% if row.tuition_fee %}{{ row.tuition_fee|intcomma }}{% else %}-{% endif %}</td>
+                        <td class="small text-end">
+                            {{ row.duration_weeks|floatformat:0 }} weeks
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% include "snippets/pagination.html" %}
+    </div>
+</section>
+{% elif city and course %}
+<div class="alert alert-secondary">No active {{ course|lower }} courses found for {{ city|title }}.</div>
+{% elif city %}
+<div class="alert alert-secondary">No active CRICOS courses found for {{ city|title }}.</div>
+{% elif course %}
+<div class="alert alert-secondary">No matching CRICOS courses found.</div>
+{% endif %}
+{% endblock %}

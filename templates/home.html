@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Find CRICOS Courses and Providers in Australia{% endblock %}
+
+{% block head %}
+<meta name="description" content="Search official CRICOS-listed providers and courses by city, study area or institution.">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Find CRICOS Courses and Providers in Australia">
+<meta property="og:description" content="Search official CRICOS-listed providers and courses by city, study area or institution.">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Find CRICOS Courses and Providers in Australia">
+<meta name="twitter:description" content="Search official CRICOS-listed providers and courses by city, study area or institution.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "CRICOS Finder",
+  "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'home' %}"
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h1 class="h3 mb-2">Find CRICOS courses, providers and study locations in Australia</h1>
+        <p class="text-muted mb-3">Search official CRICOS-listed education providers and courses by city, study area or institution.</p>
+
+        {% include "snippets/search_panel.html" %}
+    </div>
+</section>
+
+<section class="mb-4">
+    <h2 class="h5 mb-3">Quick paths</h2>
+    <div class="row g-3">
+        <div class="col-12 col-lg-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h3 class="h6">Search by city</h3>
+                    <p class="text-muted small mb-3">Find CRICOS courses and providers in Sydney, Melbourne, Brisbane and other Australian cities.</p>
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'cities' %}">Browse cities</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h3 class="h6">Search by study area</h3>
+                    <p class="text-muted small mb-3">Explore business, nursing, IT, engineering, English and other popular study areas.</p>
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'study_areas' %}">Browse study areas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h3 class="h6">Search by provider</h3>
+                    <p class="text-muted small mb-3">Look up a CRICOS-registered education provider and see its courses and campus locations.</p>
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'providers' %}">Browse providers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4">
+    <header class="mb-2">
+        <h2 class="h5 mb-1">Popular Cities for International Students</h2>
+        <p class="text-muted small mb-0">Explore CRICOS courses and providers in major Australian study destinations.</p>
+    </header>
+    <div class="row g-3">
+        {% for city in popular_cities|slice:":8" %}
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a href="{{ city.url }}" class="card border-0 shadow-sm h-100 text-decoration-none">
+                <div class="card-body">
+                    <h3 class="h6 text-dark mb-1">Study in {{ city.name }}</h3>
+                    <div class="small text-muted">{{ city.providers_count|intcomma }} providers · {{ city.courses_count|intcomma }} courses</div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="mb-4">
+    <header class="mb-2">
+        <h2 class="h5 mb-1">Popular Study Areas</h2>
+        <p class="text-muted small mb-0">Find CRICOS courses by subject and professional field.</p>
+    </header>
+    <div class="row g-3">
+        {% for area in popular_study_areas %}
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a href="{{ area.url }}" class="card border-0 shadow-sm h-100 text-decoration-none">
+                <div class="card-body">
+                    <h3 class="h6 text-dark mb-1">{{ area.name }}</h3>
+                    <div class="small text-muted">{{ area.providers_count|intcomma }} providers · {{ area.courses_count|intcomma }} courses</div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="mb-4">
+    <div class="d-flex justify-content-between align-items-end gap-2 mb-2">
+        <div>
+            <h2 class="h5 mb-1">Featured CRICOS Providers</h2>
+            <p class="text-muted small mb-0">Explore education providers registered in the CRICOS system.</p>
+        </div>
+        <a class="small" href="{% url 'providers' %}">Browse all CRICOS providers</a>
+    </div>
+    <div class="row g-3">
+        {% for provider in featured_providers %}
+        <div class="col-12 col-md-6 col-lg-4">
+            <a href="{% url 'provider' provider.provider_code %}" class="card border-0 shadow-sm h-100 text-decoration-none">
+                <div class="card-body">
+                    <h3 class="h6 text-dark mb-1">{{ provider.institution_name }}</h3>
+                    <div class="small text-muted mb-2">Provider code: {{ provider.provider_code }}</div>
+                    <div class="small text-dark mb-1">
+                        {% if provider.locations %}
+                            {% for location in provider.locations|slice:":2" %}
+                                {% if not forloop.first %}, {% endif %}
+                                {{ location.city|default:location.location_name|default:"Location" }}{% if location.state %}, {{ location.state }}{% endif %}
+                            {% endfor %}
+                            {% if provider.locations|length > 2 %}
+                                +{{ provider.locations|length|add:"-2" }} more
+                            {% endif %}
+                        {% else %}
+                            Location not specified
+                        {% endif %}
+                    </div>
+                    <div class="small text-muted">{{ provider.active_courses_count|intcomma }} active courses · {{ provider.institution_type }}</div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-3">How to use CRICOS Finder</h2>
+        <ol class="mb-0">
+            <li>Enter a city or course keyword</li>
+            <li>Compare CRICOS-listed providers and courses</li>
+            <li>Open provider and course pages for details</li>
+            <li>Verify final application details with official sources</li>
+        </ol>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">What is CRICOS?</h2>
+        <p class="mb-2">
+            CRICOS (Commonwealth Register of Institutions and Courses for Overseas Students) is the official Australian register of education providers and courses available to overseas students studying in Australia on student visas.
+            This site helps you explore that information in a more convenient and searchable format.
+        </p>
+        <p class="small text-muted mb-0">
+            Education providers must be registered in CRICOS to enrol overseas students.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-3">Why use CRICOS Finder</h2>
+        <div class="row g-3">
+            <div class="col-12 col-md-6 col-lg-3"><div class="border rounded p-3 h-100 small">Search by city, provider or course</div></div>
+            <div class="col-12 col-md-6 col-lg-3"><div class="border rounded p-3 h-100 small">Compare locations and durations</div></div>
+            <div class="col-12 col-md-6 col-lg-3"><div class="border rounded p-3 h-100 small">Browse official CRICOS-listed data</div></div>
+            <div class="col-12 col-md-6 col-lg-3"><div class="border rounded p-3 h-100 small">Explore study options faster than raw spreadsheets</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-4">
+    <div class="d-flex justify-content-between align-items-end gap-2 mb-2">
+        <div>
+            <h2 class="h5 mb-1">Guides for International Students</h2>
+            <p class="text-muted small mb-0">Practical explainers about CRICOS, providers and study planning.</p>
+        </div>
+        <a class="small" href="{% url 'blogs' %}">Read guides</a>
+    </div>
+    <div class="row g-3">
+        {% for post in latest_guides %}
+        {% include "snippets/post.html" %}
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-secondary mb-0">Guides will appear here after publication.</div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-md-4">
+                <h2 class="h5 mb-2">Browse Courses by Australian State</h2>
+                <div class="d-flex flex-wrap gap-2">
+                    {% for state in settings.POPULAR_STATES %}
+                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'search' course_slug=state.name|slugify %}">{{ state.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body p-md-4">
+                <h2 class="h5 mb-2">Popular Course Searches</h2>
+                <ul class="mb-0 small">
+                    {% for item in settings.POPULAR_COMBINATIONS %}
+                    <li><a href="{% url 'search' city_slug=item.city|slugify course_slug=item.q|slugify %}">{{ item.label }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">Data source and accuracy</h2>
+        <p class="mb-2">
+            CRICOS Finder is built for easier exploration of publicly available CRICOS data. Course availability, fees, durations and locations may change.
+            Always verify important details with the official government source or the provider before applying.
+        </p>
+        <ul class="small text-muted mb-0">
+            <li>Official source: <a href="https://cricos.education.gov.au/" target="_blank" rel="noopener noreferrer nofollow external" referrerpolicy="no-referrer">CRICOS official register</a></li>
+            <li>Last updated: {% if dataset.dataset_datetime %}{{ dataset.dataset_datetime|date:"F j, Y" }}{% elif dataset.imported_at %}{{ dataset.imported_at|date:"F j, Y" }}{% else %}Not available{% endif %}</li>
+            <li>Dataset file: {% if dataset %}{{ dataset.source_file_name|default:"Not available" }}{% else %}Not available{% endif %}</li>
+            <li>Methodology: <a href="{% url 'methodology' %}">CRICOS Finder Methodology</a></li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

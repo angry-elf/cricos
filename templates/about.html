@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}About CRICOS Finder{% endblock %}
+
+{% block head %}
+<meta name="description" content="About CRICOS Finder: SEO-friendly CRICOS search by city and course to find providers, locations and programs in Australia.">
+<meta name="keywords" content="CRICOS finder, CRICOS search, CRICOS courses Australia, CRICOS providers, student visa courses">
+<meta property="og:title" content="About CRICOS Finder">
+<meta property="og:description" content="Find CRICOS courses by city or by course and compare providers and locations in Australia.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="About CRICOS Finder">
+<meta name="twitter:description" content="Simple CRICOS city and course search for international students."><link rel="canonical" href="{{ request.build_absolute_uri }}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">About CRICOS</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <h1 class="h3 mb-3">About CRICOS Finder</h1>
+        <p class="text-muted">
+            CRICOS Finder is built for one simple task: help students find the right CRICOS course, city and provider faster.
+        </p>
+
+        <section class="mb-4">
+            <h2 class="h5">What you can do</h2>
+            <ul>
+                <li>Enter a city and see available courses and locations in that city.</li>
+                <li>Enter a course and see in which cities and providers it is offered.</li>
+                <li>Open a provider page and view its courses, provider code and locations.</li>
+            </ul>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">Data scope</h2>
+            <p>
+                The index is based on CRICOS providers, courses and campus locations.
+                Results are grouped to show cities, location names, course titles and provider codes in one clear table.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="h5">SEO and usability goal</h2>
+            <p class="mb-0">
+                Make CRICOS search simple, fast and readable from any country, especially where official sites are slow or hard to use.
+            </p>
+        </section>
+    </div>
+</div>
+{% endblock %}

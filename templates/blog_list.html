@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "CRICOS Blog and Study Guides" %}{% endblock %}
+
+{% block head %}
+<meta name="description" content="{% trans 'Articles for international students about CRICOS providers, courses, cities and study planning in Australia.' %}">
+<meta name="keywords" content="{% trans 'CRICOS blog, study in Australia, international students, CRICOS courses, providers Australia' %}">
+<meta property="og:title" content="{% trans 'CRICOS Blog and Study Guides' %}">
+<meta property="og:description" content="{% trans 'Read practical guides about CRICOS courses, providers and city-based study options in Australia.' %}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:site_name" content="{% trans 'CRICOS Finder' %}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% trans 'CRICOS Blog and Study Guides' %}">
+<meta name="twitter:description" content="{% trans 'Latest CRICOS study guides for international students' %}"><link rel="canonical" href="{{ request.build_absolute_uri }}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">Guides</li>
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">{% trans "Latest posts" %}</h1>
+{% if request.user.is_staff %}
+<a href={% url 'blog_edit' %} class="btn btn-primary mb-3">{% trans 'Create' %}</a>
+{% endif %}
+<div class="row">
+    {% for post in page_obj %}
+        {% include "snippets/post.html" %}
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">
+            {% trans "No posts yet. Check back later!" %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% include "snippets/pagination.html" %}
+{% endblock %}

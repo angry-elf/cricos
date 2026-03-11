@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Journal" %} / {% endblock %}
+
+{% block breadcrumbs %}
+    {% if is_today %}
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Journal" %}</li>
+    {% else %}
+        <li class="breadcrumb-item"><a href="{{ request.path }}">{% trans "Journal" %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ initial.date }}</li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<h1>{% trans "Recent Operations Journal" %}</h1>
+
+<form method="get" class="input-group" style="width: fit-content;">
+    <input type="date" name="date" class="form-control" id="{{ form.date.id_for_label }}" value="{{ initial.date.isoformat }}" required>
+    <button type="submit" class="btn btn-primary">{% trans "Show" %}</button>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Company" %}</th>
+            <th>{% trans "User" %}</th>
+            <th>{% trans "Module" %}</th>
+            <th>{% trans "Submodule" %}</th>
+            <th>{% trans "Object" %}</th>
+            <th>{% trans "Message" %}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td><a href="{{ log.get_absolute_url }}">{{ log.date|date:"d.m.Y H:i:s" }}</a></td>
+            <td>{{ log.company|default_if_none:"&ndash;" }}</td>
+            <td>{{ log.user }}</td>
+            <td>{{ log.module }}</td>
+            <td>{{ log.submodule }}</td>
+            <td>{{ log.object_id|default_if_none:"" }}</td>
+            <td>{{ log.message }}</td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

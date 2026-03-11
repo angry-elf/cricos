@@ -1,0 +1,4 @@
+Sitemap: https://cricos.com/sitemap_index.xml
+
+User-Agent: *
+Allow: /

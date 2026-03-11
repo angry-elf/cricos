@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ seo_title|default:"Contact CRICOS Finder" }}{% endblock %}
+
+{% block head %}
+<meta name="description" content="{{ seo_description|default:'Contact page for CRICOS Finder questions, corrections and feedback.' }}">
+
+<link rel="canonical" href="{{ canonical_url }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ seo_title }}">
+<meta property="og:description" content="{{ seo_description }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ seo_title }}">
+<meta name="twitter:description" content="{{ seo_description }}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">Contact</li>
+{% endblock %}
+
+{% block content %}
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h1 class="h3 mb-2">Contact CRICOS Finder</h1>
+        <p class="mb-3">
+            Use this page for feedback, correction requests, or general questions about the project.
+        </p>
+        <ul class="mb-0">
+            <li>For data source details: <a href="{% url 'data_source' %}">Data Source</a></li>
+            <li>For data processing details: <a href="{% url 'methodology' %}">Methodology</a></li>
+            <li>For legal notice: <a href="{% url 'disclaimer' %}">Disclaimer</a></li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

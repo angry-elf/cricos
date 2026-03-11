@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block head %}
+<meta name="description" content="{{ post.seo_description|default:post.content|striptags|truncatechars:160 }}">
+
+<meta property="og:title" content="{{ post.seo_title|default:post.title }} | {% trans 'CRICOS Study Blog' %}">
+<meta property="og:description" content="{{ post.seo_description|default:post.content|striptags|truncatechars:300 }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:site_name" content="{% trans 'CRICOS Finder' %}">
+<meta property="article:published_time" content="{{ post.publish_date|date:'c' }}">
+<meta property="article:modified_time" content="{{ post.updated_at|date:'c' }}">
+<meta property="article:author" content="{{ post.author.username }}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ post.seo_title|default:post.title }}">
+<meta name="twitter:description" content="{{ post.seo_description|default:post.content|striptags|truncatechars:200 }}">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ post.title }}",
+  "description": "{{ post.seo_description }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ post.author.username }}"
+  },
+  "datePublished": "{{ post.publish_date|date:'c' }}",
+  "dateModified": "{{ post.updated_at|date:'c' }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ post.author.username }}"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  }
+}
+</script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="{% url 'blogs' %}">Guides</a></li>
+<li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+{% endblock %}
+
+{% block content %}
+<article class="blog-post-detail">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12">
+            {% if request.user.is_staff and post.publish_date > now %}
+            <div class="alert alert-warning fw-bold mt-2">
+                {% trans "Publish date" %}: {{ post.publish_date|date:"DATE_FORMAT" }}
+            </div>
+            {% endif %}
+            {% if request.user.is_staff %}
+            <a href={% url 'blog_edit' post.slug %} class="btn btn-primary">{% trans 'Edit' %}<a/>
+            {% endif %}
+            <h1 class="display-5 mb-3">{{ post.title }}</h1>
+
+            <div class="d-flex align-items-center mb-4 text-muted">
+                <div>
+                    <span class="d-block">{% trans "Posted by" %} {{ post.author.username }}</span>
+                    <small class="text-muted">
+                        {{ post.publish_date|date:"DATE_FORMAT" }}
+                        {% if post.updated_at|date:"DATETIME_FORMAT" != post.created_at|date:"DATETIME_FORMAT" %}
+                        ({% trans "updated" %} {{ post.updated_at|date:"DATE_FORMAT" }})
+                        {% endif %}
+                        <br>
+                    </small>
+                </div>
+            </div>
+            <div class="blog-content">
+                {{ post.editorjs_to_html|safe }}
+            </div>
+        </div>
+    </div>
+</article>
+{% endblock %}

@@ -1,0 +1,4 @@
+{% load metasite %}<url>
+    <loc>{{ scheme }}://{{ hostname }}{{ url|xml_escape }}</loc>
+    {% if item.lastmod %}<lastmod>{{ item.lastmod }}</lastmod>{% endif %}
+</url>

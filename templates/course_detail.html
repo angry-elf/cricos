@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}{{ course.course_name }} ({{ course.course_code }}) at {{ course.institution.institution_name }} | CRICOS Course{% endblock %}
+
+{% block head %}
+<meta name="description" content="View CRICOS course {{ course.course_name }} ({{ course.course_code }}) at {{ course.institution.institution_name }}.">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ course.course_name }} ({{ course.course_code }}) at {{ course.institution.institution_name }} | CRICOS Course">
+<meta property="og:description" content="View CRICOS course {{ course.course_name }} ({{ course.course_code }}) at {{ course.institution.institution_name }}.">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ course.course_name }} ({{ course.course_code }}) at {{ course.institution.institution_name }} | CRICOS Course">
+<meta name="twitter:description" content="View CRICOS course {{ course.course_name }} ({{ course.course_code }}) at {{ course.institution.institution_name }}.">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="{% url 'providers' %}">Providers</a></li>
+<li class="breadcrumb-item">
+    <a href="{% url 'provider' course.institution.provider_code %}">{{ course.institution.institution_name }}</a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">{{ course.course_name }}</li>
+{% endblock %}
+
+{% block content %}
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-start gap-3">
+            <div>
+                <h1 class="h3 mb-1">{{ course.course_name }}</h1>
+                <p class="text-muted mb-2">CRICOS course code: <strong>{{ course.course_code }}</strong></p>
+                <p class="mb-0">
+                    <span class="small text-muted">Provider:</span>
+                    <a href="{% url 'provider' course.institution.provider_code %}" class="fw-semibold">{{ course.institution.institution_name }}</a>
+                </p>
+            </div>
+            <div class="text-md-end">
+                <a href="{% url 'provider' course.institution.provider_code %}" class="btn btn-outline-primary btn-sm">Open Provider Page</a>
+                <div class="small text-muted mt-2">Provider code: {{ course.institution.provider_code }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row g-2 mb-4">
+    <div class="col-6 col-lg-3"><div class="card border-0 shadow-sm h-100"><div class="card-body"><div class="small text-muted">Fee (AUD)</div><div class="fw-semibold">{% if course.tuition_fee %}{{ course.tuition_fee|intcomma }}{% else %}-{% endif %}</div></div></div></div>
+    <div class="col-6 col-lg-3"><div class="card border-0 shadow-sm h-100"><div class="card-body"><div class="small text-muted">Non tuition (AUD)</div><div class="fw-semibold">{% if course.non_tuition_fee %}{{ course.non_tuition_fee|intcomma }}{% else %}-{% endif %}</div></div></div></div>
+    <div class="col-6 col-lg-3"><div class="card border-0 shadow-sm h-100"><div class="card-body"><div class="small text-muted">Duration</div><div class="fw-semibold">{% if course.duration_weeks %}{{ course.duration_weeks|floatformat:0 }} weeks{% else %}-{% endif %}</div></div></div></div>
+    <div class="col-6 col-lg-3"><div class="card border-0 shadow-sm h-100"><div class="card-body"><div class="small text-muted">Course level</div><div class="fw-semibold">{{ course.course_level }}</div></div></div></div>
+    <div class="col-6 col-lg-3"><div class="card border-0 shadow-sm h-100"><div class="card-body"><div class="small text-muted">Language</div><div class="fw-semibold">{{ course.course_language }}</div></div></div></div>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h6 mb-3">Course Details</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Provider code</span><span class="text-end">{{ course.provider_code }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Institution name (from course file)</span><span class="text-end">{{ course.institution_name }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">VET national code</span><span class="text-end">{{ course.vet_national_code|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Dual qualification</span><span class="text-end">{{ course.dual_qualification|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Foundation studies</span><span class="text-end">{{ course.foundation_studies|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Work component</span><span class="text-end">{{ course.work_component|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Work hours/week</span><span class="text-end">{{ course.work_component_hours_per_week|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Work weeks</span><span class="text-end">{{ course.work_component_weeks|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Work total hours</span><span class="text-end">{{ course.work_component_total_hours|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Estimated total (AUD)</span><span class="text-end">{% if course.estimated_total_course_cost %}{{ course.estimated_total_course_cost|intcomma }}{% else %}-{% endif %}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Expired</span><span class="text-end">{{ course.expired|yesno:"Yes,No" }}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h2 class="h6 mb-3">Study Areas and Provider</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Primary study area (broad)</span><span class="text-end">{{ course.field_1_broad|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Primary study area (narrow)</span><span class="text-end">{{ course.field_1_narrow|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Primary study area (detailed)</span><span class="text-end">{{ course.field_1_detailed|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Secondary study area (broad)</span><span class="text-end">{{ course.field_2_broad|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Secondary study area (narrow)</span><span class="text-end">{{ course.field_2_narrow|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Secondary study area (detailed)</span><span class="text-end">{{ course.field_2_detailed|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Trading name</span><span class="text-end">{{ course.institution.trading_name|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Institution type</span><span class="text-end">{{ course.institution.institution_type }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Institution capacity</span><span class="text-end">{{ course.institution.institution_capacity|intcomma }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Website</span><span class="text-end">{% if course.institution.website %}<a href="{{ course.institution.website }}" target="_blank" rel="noopener noreferrer nofollow external" referrerpolicy="no-referrer">{{ course.institution.website }}</a>{% else %}-{% endif %}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal line 1</span><span class="text-end">{{ course.institution.postal_address_line_1|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal line 2</span><span class="text-end">{{ course.institution.postal_address_line_2|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal line 3</span><span class="text-end">{{ course.institution.postal_address_line_3|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal line 4</span><span class="text-end">{{ course.institution.postal_address_line_4|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal city</span><span class="text-end">{{ course.institution.postal_city|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal state</span><span class="text-end">{{ course.institution.postal_state|default:"-" }}</span></li>
+                    <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal postcode</span><span class="text-end">{{ course.institution.postal_postcode|default:"-" }}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-3">Course Locations</h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Institution</th>
+                        <th>Course code</th>
+                        <th>Location Name</th>
+                        <th>City</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for location in course.course_locations %}
+                    <tr>
+                        <td>{{ location.provider_code }}</td>
+                        <td>{{ location.institution_name }}</td>
+                        <td>{{ location.course_code }}</td>
+                        <td>{{ location.location_name }}</td>
+                        <td>{% if location.location_city %}<a href="{% url 'search' city_slug=location.location_city|slugify %}">{{ location.location_city|title }}</a>{% else %}-{% endif %}</td>
+                        <td>{{ location.location_state|default:"-" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-3">Provider Campuses</h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Institution</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Address 1</th>
+                        <th>Address 2</th>
+                        <th>Address 3</th>
+                        <th>Address 4</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Postcode</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for location in course.institution.campus_locations %}
+                    <tr>
+                        <td>{{ location.provider_code }}</td>
+                        <td>{{ location.institution_name }}</td>
+                        <td>{{ location.location_name }}</td>
+                        <td>{{ location.location_type|default:"-" }}</td>
+                        <td>{{ location.address_line_1|default:"-" }}</td>
+                        <td>{{ location.address_line_2|default:"-" }}</td>
+                        <td>{{ location.address_line_3|default:"-" }}</td>
+                        <td>{{ location.address_line_4|default:"-" }}</td>
+                        <td>{% if location.city %}<a href="{% url 'search' city_slug=location.city|slugify %}">{{ location.city|title }}</a>{% else %}-{% endif %}</td>
+                        <td>{{ location.state|default:"-" }}</td>
+                        <td>{{ location.postcode }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

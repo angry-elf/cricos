@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}{{ institution.institution_name }} ({{ institution.provider_code }}) CRICOS Courses and Locations{% endblock %}
+
+{% block head %}
+<meta name="description" content="Explore {{ institution.institution_name }} CRICOS courses, course codes, levels, fees and locations.">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ institution.institution_name }} ({{ institution.provider_code }}) CRICOS Courses and Locations">
+<meta property="og:description" content="Explore {{ institution.institution_name }} CRICOS courses, course codes, levels, fees and locations.">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ institution.institution_name }} ({{ institution.provider_code }}) CRICOS Courses and Locations">
+<meta name="twitter:description" content="Explore {{ institution.institution_name }} CRICOS courses, course codes, levels, fees and locations.">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="{% url 'providers' %}">Providers</a></li>
+{% if page_obj.number > 1 %}
+<li class="breadcrumb-item"><a href="{% url 'provider' institution.provider_code %}">{{ institution.institution_name }}</a></li>
+<li class="breadcrumb-item active" aria-current="page">Page {{ page_obj.number }}</li>
+{% else %}
+<li class="breadcrumb-item active" aria-current="page">{{ institution.institution_name }}</li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-start gap-3">
+            <div>
+                <h1 class="h3 mb-1">{{ institution.institution_name }}</h1>
+                <p class="text-muted mb-2">CRICOS provider code: <strong>{{ institution.provider_code }}</strong></p>
+                <p class="mb-0 small text-muted">Browse courses by city, tuition and duration.</p>
+            </div>
+            {% if institution.website %}
+            <div class="text-md-end">
+                <a href="{{ institution.website }}" class="btn btn-outline-primary btn-sm" target="_blank" rel="noopener noreferrer nofollow external" referrerpolicy="no-referrer">Visit Provider Website</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="row g-2 mb-4">
+    <div class="col-6 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"><div class="card-body"><div class="small text-muted">Active courses</div><div class="fw-semibold">{{ institution.active_courses_count|intcomma }}</div></div></div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"><div class="card-body"><div class="small text-muted">Total courses</div><div class="fw-semibold">{{ institution.total_courses_count|intcomma }}</div></div></div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"><div class="card-body"><div class="small text-muted">Cities</div><div class="fw-semibold">{{ institution.cities_count|intcomma }}</div></div></div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="card border-0 shadow-sm h-100"><div class="card-body"><div class="small text-muted">States</div><div class="fw-semibold">{{ institution.states_count|intcomma }}</div></div></div>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <h2 class="h6 mb-3">Provider Profile</h2>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Trading name</span><span class="text-end">{{ institution.trading_name|default:"-" }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Institution type</span><span class="text-end">{{ institution.institution_type }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Institution capacity</span><span class="text-end">{{ institution.institution_capacity|intcomma }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Website</span><span class="text-end">{% if institution.website %}<a href="{{ institution.website }}" target="_blank" rel="noopener noreferrer nofollow external" referrerpolicy="no-referrer">{{ institution.website }}</a>{% else %}-{% endif %}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">States</span><span class="text-end">{{ provider_states|join:", "|default:"-" }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Cities</span><span class="text-end">{{ provider_cities|join:", "|default:"-" }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal line 1</span><span class="text-end">{{ institution.postal_address_line_1|default:"-" }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal line 2</span><span class="text-end">{{ institution.postal_address_line_2|default:"-" }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal line 3</span><span class="text-end">{{ institution.postal_address_line_3|default:"-" }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal line 4</span><span class="text-end">{{ institution.postal_address_line_4|default:"-" }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal city</span><span class="text-end">{{ institution.postal_city|default:"-" }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal state</span><span class="text-end">{{ institution.postal_state|default:"-" }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between gap-2"><span class="text-muted">Postal postcode</span><span class="text-end">{{ institution.postal_postcode|default:"-" }}</span></li>
+        </ul>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">Courses</h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>City</th>
+                        <th class="text-end">Campuses</th>
+                        <th class="text-end">Fee (AUD)</th>
+                        <th class="text-end">Duration</th>
+                        <th>Study Area</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in page_obj.object_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'course_detail' row.provider_code row.course_code %}">{{ row.course_name }}</a>
+                            <div class="small text-muted">Code {{ row.course_code }}</div>
+                        </td>
+                        <td class="small">
+                            {% if row.course_locations %}
+                                {% for location in row.course_locations %}
+                                    {% if not forloop.first %}, {% endif %}
+                                    {% if location.location_city %}
+                                        <a href="{% url 'search' city_slug=location.location_city|slugify %}">{{ location.location_city|title }}</a>
+                                    {% elif location.location_name %}
+                                        {{ location.location_name }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="small text-end">
+                            {{ row.campuses_count|intcomma }}
+                        </td>
+                        <td class="small text-end">{% if row.tuition_fee %}{{ row.tuition_fee|intcomma }}{% else %}-{% endif %}</td>
+                        <td class="small text-end">{{ row.duration_weeks|floatformat:0 }} weeks</td>
+                        <td class="small">{{ row.field_1_detailed|default:row.field_1_narrow|default:row.field_1_broad|default:"-" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% include "snippets/pagination.html" %}
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">Provider Campuses</h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Institution</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Address 1</th>
+                        <th>Address 2</th>
+                        <th>Address 3</th>
+                        <th>Address 4</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Postcode</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in provider_locations %}
+                    <tr>
+                        <td>{{ row.provider_code }}</td>
+                        <td>{{ row.institution_name }}</td>
+                        <td>{{ row.location_name }}</td>
+                        <td>{{ row.location_type|default:"-" }}</td>
+                        <td>{{ row.address_line_1|default:"-" }}</td>
+                        <td>{{ row.address_line_2|default:"-" }}</td>
+                        <td>{{ row.address_line_3|default:"-" }}</td>
+                        <td>{{ row.address_line_4|default:"-" }}</td>
+                        <td>{% if row.city %}<a href="{% url 'search' city_slug=row.city|slugify %}">{{ row.city|title }}</a>{% else %}-{% endif %}</td>
+                        <td>{{ row.state|default:"-" }}</td>
+                        <td>{{ row.postcode }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">Course Locations</h2>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Provider</th>
+                        <th>Institution</th>
+                        <th>Course code</th>
+                        <th>Location name</th>
+                        <th>City</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in provider_course_locations %}
+                    <tr>
+                        <td>{{ row.provider_code }}</td>
+                        <td>{{ row.institution_name }}</td>
+                        <td>{{ row.course_code }}</td>
+                        <td>{{ row.location_name }}</td>
+                        <td>{% if row.location_city %}<a href="{% url 'search' city_slug=row.location_city|slugify %}">{{ row.location_city|title }}</a>{% else %}-{% endif %}</td>
+                        <td>{{ row.location_state|default:"-" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}
