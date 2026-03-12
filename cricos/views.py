@@ -149,11 +149,22 @@ def provider(request, provider_code):
     )
 
 
+def popular_providers(request):
+    dataset_id = Dataset.objects.only("id").get(is_current=True).id
+    featured_providers = Institution.objects.filter(
+        dataset_id=dataset_id,
+    ).order_by("-active_courses_count").prefetch_related(
+        Prefetch("location_set", to_attr="locations"),
+    )[:12]
+
+    return render(request, "providers_popular.html", {"featured_providers": featured_providers})
+
+
 def providers(request):
     dataset_id = Dataset.objects.only("id").get(is_current=True).id
     institutions = Institution.objects.filter(
         dataset_id=dataset_id,
-    ).order_by("institution_name").prefetch_related(
+    ).order_by("-active_courses_count").prefetch_related(
         Prefetch("location_set", to_attr="locations"),
     )
     paginator = Paginator(institutions, settings.MAX_PAGE_SIZE)

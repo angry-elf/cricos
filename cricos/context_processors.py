@@ -32,14 +32,19 @@ def menu(request):
             'url': reverse('about'),
         },
         {
-            'title': _('Django Admin'),
-            'acl': lambda user: user.is_superuser,
-            'url': '/admin/',
-        },
-        {
-            'title': _('Journal'),
-            'acl': lambda user: user.is_superuser,
-            'url': reverse('journal'),
+            'title': _('Admin'),
+            'acl': lambda user: user.is_superuser or user.is_company_owner,
+            'submenu': [
+                {
+                    'title': 'Django Admin',
+                    'url': '/admin/',
+                    'acl': lambda user: user.is_superuser,
+                },
+                {
+                    'title': _('Journal'),
+                    'url': reverse('journal'),
+                },
+            ],
         },
     ]
 

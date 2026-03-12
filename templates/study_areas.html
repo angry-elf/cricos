@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% load humanize %}
 
-{% block title %}CRICOS Study Areas in Australia{% endblock %}
+{% block title %}CRICOS Study Areas in Australia | Courses by Field{% endblock %}
 
 {% block head %}
-<meta name="description" content="Browse CRICOS courses by study area including business, nursing, IT, engineering and more.">
+<meta name="description" content="Explore CRICOS study areas in Australia and find courses for international students. Browse programs in business, IT, nursing, engineering and other fields.">
 <link rel="canonical" href="{{ request.build_absolute_uri }}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="CRICOS Study Areas in Australia">
-<meta property="og:description" content="Browse CRICOS courses by study area including business, nursing, IT, engineering and more.">
+<meta property="og:title" content="CRICOS Study Areas in Australia | Courses by Field">
+<meta property="og:description" content="Explore CRICOS study areas in Australia and find courses for international students. Browse programs in business, IT, nursing, engineering and other fields.">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CRICOS Study Areas in Australia">
-<meta name="twitter:description" content="Browse CRICOS courses by study area including business, nursing, IT, engineering and more.">
+<meta name="twitter:title" content="CRICOS Study Areas in Australia | Courses by Field">
+<meta name="twitter:description" content="Explore CRICOS study areas in Australia and find courses for international students. Browse programs in business, IT, nursing, engineering and other fields.">
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -20,21 +20,59 @@
 {% endblock %}
 
 {% block content %}
-<header class="mb-3">
-    <h1 class="h3 mb-1">Popular Study Areas</h1>
-    <p class="text-muted mb-0">Find CRICOS courses by subject and professional field.</p>
+<header class="mb-4 d-flex flex-wrap justify-content-between align-items-end gap-2">
+    <div>
+        <h1 class="h3 mb-2">CRICOS Study Areas in Australia</h1>
+        <p class="text-muted mb-0">Explore CRICOS study areas available for international students in Australia. Browse courses offered by universities, colleges and training providers across different professional fields such as business, IT, nursing and engineering.</p>
+    </div>
+    <a class="btn btn-sm btn-outline-primary" href="{% url 'search' %}">View all courses</a>
 </header>
 
-<section class="row g-3">
-    {% for area in popular_study_areas %}
-    <div class="col-12 col-sm-6 col-lg-3">
-        <a href="{{ area.url }}" class="card border-0 shadow-sm h-100 text-decoration-none">
-            <div class="card-body">
-                <h2 class="h6 text-dark mb-1">{{ area.name }}</h2>
-                <div class="small text-muted">{{ area.providers_count|intcomma }} providers · {{ area.courses_count|intcomma }} courses</div>
-            </div>
-        </a>
+<section class="mb-4">
+    <header class="mb-2">
+        <h2 class="h5 mb-1">Popular Study Areas</h2>
+    </header>
+    <div class="row g-3">
+        {% for area in popular_study_areas %}
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a href="{{ area.url }}" class="card border-0 shadow-sm h-100 text-decoration-none">
+                <div class="card-body">
+                    <h3 class="h6 text-dark mb-1">{{ area.name }}</h3>
+                    <div class="small text-muted">{{ area.providers_count|intcomma }} providers · {{ area.courses_count|intcomma }} courses</div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <p>
+            Australia offers thousands of CRICOS-registered courses across many different study areas. Universities, vocational colleges and English language schools provide programs designed for international students who want to study in Australia on a student visa.
+        </p>
+        <p>
+            Popular study areas include business, information technology, engineering, nursing, hospitality and community services. These programs are available in major Australian study destinations such as Sydney, Melbourne, Brisbane, Perth and Adelaide, as well as in regional education hubs.
+        </p>
+        <p>
+            Each study area page on this site allows you to explore CRICOS-registered courses, education providers and study locations across Australia. You can compare programs offered by universities and training institutions and discover which providers deliver courses in specific fields of study.
+        </p>
+        <p class="mb-0">
+            Use the study areas listed above to browse available courses and find programs that match your academic and career goals.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-3">Popular course searches in Australia</h2>
+        <ul class="mb-0 small">
+            <li><a href="{% url 'search' city_slug='melbourne' course_slug='nursing' %}">Nursing courses in Melbourne</a></li>
+            <li><a href="{% url 'search' city_slug='sydney' course_slug='business' %}">Business courses in Sydney</a></li>
+            <li><a href="{% url 'search' city_slug='brisbane' course_slug='information-technology' %}">IT courses in Brisbane</a></li>
+            <li><a href="{% url 'search' city_slug='perth' course_slug='engineering' %}">Engineering courses in Perth</a></li>
+            <li><a href="{% url 'search' city_slug='adelaide' course_slug='english' %}">English courses in Adelaide</a></li>
+        </ul>
+    </div>
 </section>
 {% endblock %}

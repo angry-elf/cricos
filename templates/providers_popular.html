@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}CRICOS Providers in Australia | Universities, Colleges and Training Institutions{% endblock %}
+
+{% block head %}
+<meta name="description" content="Browse CRICOS registered education providers in Australia. Explore universities, colleges and training institutions offering courses for international students.">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CRICOS Providers in Australia | Universities, Colleges and Training Institutions">
+<meta property="og:description" content="Browse CRICOS registered education providers in Australia. Explore universities, colleges and training institutions offering courses for international students.">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CRICOS Providers in Australia | Universities, Colleges and Training Institutions">
+<meta name="twitter:description" content="Browse CRICOS registered education providers in Australia. Explore universities, colleges and training institutions offering courses for international students.">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="{% url 'providers' %}">Providers</a></li>
+<li class="breadcrumb-item active" aria-current="page">Popular Providers</li>
+{% endblock %}
+
+{% block content %}
+<header class="mb-4">
+    <h1 class="h3 mb-2">CRICOS Providers in Australia</h1>
+    <p class="text-muted mb-0">Explore CRICOS registered education providers across Australia. Browse universities, colleges and training institutions that offer courses for international students.</p>
+</header>
+
+<section class="mb-4">
+    <div class="d-flex justify-content-between align-items-end gap-2 mb-2">
+        <div>
+            <h2 class="h5 mb-1">Popular CRICOS Providers</h2>
+            <p class="text-muted small mb-0">Explore some of the best known education providers offering CRICOS registered courses in Australia.</p>
+        </div>
+    </div>
+    <div class="row g-3">
+        {% for provider in featured_providers %}
+        <div class="col-12 col-md-6 col-lg-4">
+            <a href="{% url 'provider' provider.provider_code %}" class="card border-0 shadow-sm h-100 text-decoration-none">
+                <div class="card-body">
+                    <h3 class="h6 text-dark mb-1">{{ provider.institution_name }}</h3>
+                    <div class="small text-muted mb-2">Provider code: {{ provider.provider_code }}</div>
+                    <div class="small text-dark mb-2">
+                        {% if provider.locations %}
+                            {% for location in provider.locations|slice:":2" %}
+                                {% if not forloop.first %}, {% endif %}
+                                {{ location.city|default:location.location_name|default:"Location" }}{% if location.state %}, {{ location.state }}{% endif %}
+                            {% endfor %}
+                        {% else %}
+                            Location not specified
+                        {% endif %}
+                    </div>
+                    <div class="small text-muted">{{ provider.active_courses_count|intcomma }} active courses · {{ provider.institution_type }}</div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="mt-3">
+        <a class="btn btn-sm btn-outline-primary" href="{% url 'providers' %}">View all providers</a>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-3">Popular provider searches in Australia</h2>
+        <ul class="mb-0 small">
+            <li><a href="{% url 'search' city_slug='sydney' %}">CRICOS providers in Sydney</a></li>
+            <li><a href="{% url 'search' city_slug='melbourne' %}">CRICOS providers in Melbourne</a></li>
+            <li><a href="{% url 'search' city_slug='brisbane' %}">CRICOS providers in Brisbane</a></li>
+            <li><a href="{% url 'search' city_slug='perth' %}">CRICOS providers in Perth</a></li>
+            <li><a href="{% url 'search' city_slug='adelaide' %}">CRICOS providers in Adelaide</a></li>
+        </ul>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm">
+    <div class="card-body p-md-4">
+        <p>
+            Australia has hundreds of CRICOS registered education providers that are authorised to deliver courses to international students studying on a student visa. These providers include universities, vocational colleges, English language schools and specialist training institutions located across major Australian study destinations such as Sydney, Melbourne, Brisbane, Perth and Adelaide.
+        </p>
+        <p>
+            This page helps you explore CRICOS providers in Australia and discover the institutions offering active programs in different fields of study. Each provider page includes the official CRICOS provider code, active course count and locations where programs are delivered.
+        </p>
+        <p class="mb-0">
+            Many of the best known Australian universities and colleges offer hundreds of CRICOS registered programs across business, information technology, engineering, nursing, English language training and other study areas. Use this page to browse providers and open individual profiles to compare courses, locations and study options across Australia.
+        </p>
+    </div>
+</section>
+{% endblock %}

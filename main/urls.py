@@ -50,6 +50,7 @@ urlpatterns = [
     path("cities/all/", views.all_cities, name="all_cities"),
     path("cities/", views.cities, name="cities"),
 
+    path("providers/popular/", views.popular_providers, name="popular_providers"),
     path("providers/", views.providers, name="providers"),
     path("providers/<str:provider_code>/", views.provider, name="provider"),
 

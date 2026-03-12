@@ -25,9 +25,12 @@
 {% endblock %}
 
 {% block content %}
-<header class="mb-3">
-    <h1 class="h3 mb-1">All CRICOS Providers</h1>
-    <p class="text-muted mb-0">Total providers: {{ page_obj.paginator.count }}</p>
+<header class="mb-3 d-flex flex-wrap justify-content-between align-items-end gap-2">
+    <div>
+        <h1 class="h3 mb-1">All CRICOS Providers</h1>
+        <p class="text-muted mb-0">Total providers: {{ page_obj.paginator.count }}</p>
+    </div>
+    <a class="btn btn-sm btn-outline-primary" href="{% url 'popular_providers' %}">Popular providers</a>
 </header>
 
 <section class="card border-0 shadow-sm mb-4">
@@ -46,8 +49,8 @@
                 <tbody>
                     {% for provider in page_obj.object_list %}
                     <tr>
-                <td><a href="{% url 'provider' provider.provider_code %}">{{ provider.institution_name }}</a></td>
-                <td>{{ provider.provider_code }}</td>
+                        <td><a href="{% url 'provider' provider.provider_code %}">{{ provider.institution_name }}</a></td>
+                        <td>{{ provider.provider_code }}</td>
                         <td class="small">
                             {% if provider.locations %}
                                 {% for location in provider.locations %}
@@ -64,8 +67,8 @@
                                 -
                             {% endif %}
                         </td>
-                <td class="small">{{ provider.institution_type }}</td>
-                <td class="small text-end">{{ provider.active_courses_count|intcomma }}</td>
+                        <td class="small">{{ provider.institution_type }}</td>
+                        <td class="small text-end">{{ provider.active_courses_count|intcomma }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

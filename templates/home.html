@@ -59,7 +59,7 @@
                 <div class="card-body">
                     <h3 class="h6">Search by provider</h3>
                     <p class="text-muted small mb-3">Look up a CRICOS-registered education provider and see its courses and campus locations.</p>
-                    <a class="btn btn-outline-primary btn-sm" href="{% url 'providers' %}">Browse providers</a>
+                    <a class="btn btn-outline-primary btn-sm" href="{% url 'popular_providers' %}">Browse providers</a>
                 </div>
             </div>
         </div>
@@ -110,7 +110,7 @@
             <h2 class="h5 mb-1">Featured CRICOS Providers</h2>
             <p class="text-muted small mb-0">Explore education providers registered in the CRICOS system.</p>
         </div>
-        <a class="small" href="{% url 'providers' %}">Browse all CRICOS providers</a>
+        <a class="small" href="{% url 'popular_providers' %}">Browse all CRICOS providers</a>
     </div>
     <div class="row g-3">
         {% for provider in featured_providers %}
