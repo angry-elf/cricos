@@ -129,8 +129,6 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 METASITE_TOKEN = '65fed24f-db58-45ab-bc27-a9dc64826d65'
