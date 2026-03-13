@@ -191,3 +191,9 @@ POPULAR_COMBINATIONS = (
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+REDIS = {
+    'host': 'localhost',
+    'port': 6379,
+    'db': 6,
+}
