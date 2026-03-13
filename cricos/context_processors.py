@@ -33,7 +33,7 @@ def menu(request):
         },
         {
             'title': _('Admin'),
-            'acl': lambda user: user.is_superuser or user.is_company_owner,
+            'acl': lambda user: user.is_superuser,
             'submenu': [
                 {
                     'title': 'Django Admin',
