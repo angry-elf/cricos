@@ -28,6 +28,7 @@ urlpatterns = [
     path('3bbfb19b0bff407ebd17ba1ef3aa314b.txt', serve, {'document_root': settings.MEDIA_ROOT, 'path': '3bbfb19b0bff407ebd17ba1ef3aa314b.txt'}),
     path('sitemap_index.xml', metasite.sitemap_serve, name="sitemap"),
     path('sitemap_<int:index>.xml', metasite.sitemap_serve, name="sitemap"),
+    path('robots.txt', metasite.robotstxt, name="robots"),
 
     path('privacy-policy/', metasite.privacy_policy, name='privacy_policy'),
     path('terms-conditions/', metasite.terms_conditions, name='terms_conditions'),
