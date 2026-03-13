@@ -6,7 +6,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['cricos.net', 'localhost', '127.0.0.1',]
 
 sentry_sdk.init(
-    dsn='https://d07c4dc28d5347f0bf6ef6d30027e80b@sentry2.elfov.net/7',
+    dsn='https://d07c4dc28d5347f0bf6ef6d30027e80b@sentry2.elfov.net/',
     traces_sample_rate=1.0,
 )
 
