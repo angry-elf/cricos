@@ -54,10 +54,10 @@ urlpatterns = [
     path("providers/", views.providers, name="providers"),
     path("providers/<str:provider_code>/", views.provider, name="provider"),
 
-    path('blogs/', views.blog_list, name='blogs'),
-    path('blogs/<slug:slug>/edit/', views.blog_edit, name='blog_edit'),
-    path('blogs/edit/', views.blog_edit, name='blog_edit'),
-    path('blogs/<slug:slug>/', views.blog_detail, name='blog'),
+    path('guides/', views.blog_list, name='blogs'),
+    path('guides/<slug:slug>/edit/', views.blog_edit, name='blog_edit'),
+    path('guides/edit/', views.blog_edit, name='blog_edit'),
+    path('guides/<slug:slug>/', views.blog_detail, name='blog'),
 
     path('images/upload_file/', views.image_upload, name='image_upload'),
     path('images/<int:file_id>/', views.image_fetch, name='image_fetch'),
