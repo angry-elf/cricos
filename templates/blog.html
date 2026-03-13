@@ -65,7 +65,7 @@
 
             <div class="d-flex align-items-center mb-4 text-muted">
                 <div>
-                    <span class="d-block">{% trans "Posted by" %} {{ post.author.username }}</span>
+                    <span class="d-block">{% trans "Posted by" %} {{ post.author.first_name }} {{ post.author.last_name }}</span>
                     <small class="text-muted">
                         {{ post.publish_date|date:"DATE_FORMAT" }}
                         {% if post.updated_at|date:"DATETIME_FORMAT" != post.created_at|date:"DATETIME_FORMAT" %}
