@@ -5,10 +5,10 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['cricos.net', 'localhost', '127.0.0.1',]
 
-# sentry_sdk.init(
-#     dsn='https://d07c4dc28d5347f0bf6ef6d30027e80b@sentry2.elfov.net/',
-#     traces_sample_rate=1.0,
-# )
+sentry_sdk.init(
+    dsn="https://9227af99ac0a450ebb38f17c85e004f1@sentry2.elfov.net/13",
+    traces_sample_rate=1.0,
+)
 
 CSRF_TRUSTED_ORIGINS = ['https://cricos.net']
 
@@ -19,5 +19,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-METASITE_TOKEN = '14b494f2-280a-4a48-84da-2d189fd03758'
+METASITE_TOKEN = '183111b0-4a7e-4f9c-a020-c21a88308085'
 METASITE_BACKEND = 'https://metasite.elfov.net'
