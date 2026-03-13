@@ -190,9 +190,4 @@ POPULAR_COMBINATIONS = (
 
 INTERNAL_IPS = [
     "127.0.0.1",
-    "12a4-83-10-9-195.ngrok-free.app"
 ]
-
-ALLOWED_HOSTS = ['*']
-
-CSRF_TRUSTED_ORIGINS = ['https://12a4-83-10-9-195.ngrok-free.app']
