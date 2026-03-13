@@ -197,3 +197,5 @@ REDIS = {
     'port': 6379,
     'db': 6,
 }
+
+REDIS_INDEXNOW = 'cricos_indexnow'
