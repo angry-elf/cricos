@@ -4,8 +4,8 @@
         <input id="id_city" type="text" class="form-control" name="city" value="{{ city|default:'' }}" placeholder="Sydney">
     </div>
     <div class="col-12 col-md-5">
-        <label class="form-label mb-1" for="id_q">Course / keyword / state</label>
-        <input id="id_q" type="text" class="form-control" name="q" value="{{ course|default:'' }}" placeholder="Diploma of Nursing or Victoria">
+        <label class="form-label mb-1" for="id_q">Course / keyword</label>
+        <input id="id_q" type="text" class="form-control" name="q" value="{{ course|default:'' }}" placeholder="Diploma of Nursing, Business or provider name">
     </div>
     <div class="col-12 col-md-3 d-grid">
         <button type="submit" class="btn btn-primary">Search CRICOS courses</button>
@@ -13,18 +13,17 @@
 </form>
 
 <p class="form-text mt-2 mb-0">
-    You can search by course name, provider name, CRICOS course code, provider code, level, study field or Australian state.
-    Examples: Diploma of Nursing, University of Melbourne, 00122A, Bachelor, Information Technology, Victoria.
+    Search official CRICOS-listed education providers and courses by city, study area, institution or qualification level.
 </p>
 
 <div class="mt-3">
-    <p class="small text-muted mb-2">Popular searches</p>
+    <p class="small text-muted mb-2">Popular CRICOS course searches</p>
     <div class="d-flex flex-wrap gap-2">
         <a class="badge rounded-pill text-bg-light border text-decoration-none px-3 py-2" href="{% url 'search' city_slug='melbourne' course_slug='nursing' %}">Nursing courses in Melbourne</a>
         <a class="badge rounded-pill text-bg-light border text-decoration-none px-3 py-2" href="{% url 'search' city_slug='sydney' course_slug='business' %}">Business courses in Sydney</a>
         <a class="badge rounded-pill text-bg-light border text-decoration-none px-3 py-2" href="{% url 'search' city_slug='brisbane' course_slug='english' %}">English courses in Brisbane</a>
-        <a class="badge rounded-pill text-bg-light border text-decoration-none px-3 py-2" href="{% url 'search' city_slug='adelaide' course_slug='engineering' %}">Engineering courses in Adelaide</a>
-        <a class="badge rounded-pill text-bg-light border text-decoration-none px-3 py-2" href="{% url 'search' city_slug='perth' course_slug='information-technology' %}">IT courses in Perth</a>
+        <a class="badge rounded-pill text-bg-light border text-decoration-none px-3 py-2" href="{% url 'search' city_slug='perth' course_slug='engineering' %}">Engineering courses in Perth</a>
+        <a class="badge rounded-pill text-bg-light border text-decoration-none px-3 py-2" href="{% url 'search' city_slug='adelaide' course_slug='information-technology' %}">IT courses in Adelaide</a>
     </div>
 </div>
 

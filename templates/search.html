@@ -4,20 +4,27 @@
 {% block title %}
 {% if city and course %}{{ course|title }} Courses in {{ city|title }} | CRICOS
 {% elif city %}CRICOS Courses in {{ city|title }}
-{% else %}Search CRICOS Courses and Providers
+{% else %}Search CRICOS Courses in Australia
+{% endif %}
+{% endblock %}
+
+{% block full_title %}
+{% if city and course %}{{ course|title }} Courses in {{ city|title }} | CRICOS Finder
+{% elif city %}CRICOS Courses in {{ city|title }} | CRICOS Finder
+{% else %}CRICOS Courses in Australia | Search Courses for International Students
 {% endif %}
 {% endblock %}
 
 {% block head %}
-<meta name="description" content="{% if city and course %}CRICOS-listed {{ course|lower }} courses and providers in {{ city|title }}.{% elif city %}CRICOS courses and providers in {{ city|title }}.{% else %}Search CRICOS-listed providers and courses by city, keyword or study area in Australia.{% endif %}">
+<meta name="description" content="{% if city and course %}CRICOS-listed {{ course|lower }} courses and providers in {{ city|title }}.{% elif city %}CRICOS courses and providers in {{ city|title }}.{% else %}Search CRICOS registered courses in Australia. Find programs offered by approved education providers for international students across cities and study areas.{% endif %}">
 <link rel="canonical" href="{{ request.build_absolute_uri }}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="{% if city and course %}{{ course|title }} Courses in {{ city|title }} | CRICOS{% elif city %}CRICOS Courses in {{ city|title }}{% else %}Search CRICOS Courses and Providers{% endif %}">
-<meta property="og:description" content="{% if city and course %}CRICOS-listed {{ course|lower }} courses and providers in {{ city|title }}.{% elif city %}CRICOS courses and providers in {{ city|title }}.{% else %}Search CRICOS-listed providers and courses by city, keyword or study area in Australia.{% endif %}">
+<meta property="og:title" content="{% if city and course %}{{ course|title }} Courses in {{ city|title }} | CRICOS Finder{% elif city %}CRICOS Courses in {{ city|title }} | CRICOS Finder{% else %}CRICOS Courses in Australia | Search Courses for International Students{% endif %}">
+<meta property="og:description" content="{% if city and course %}CRICOS-listed {{ course|lower }} courses and providers in {{ city|title }}.{% elif city %}CRICOS courses and providers in {{ city|title }}.{% else %}Search CRICOS registered courses in Australia. Find programs offered by approved education providers for international students across cities and study areas.{% endif %}">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{% if city and course %}{{ course|title }} Courses in {{ city|title }} | CRICOS{% elif city %}CRICOS Courses in {{ city|title }}{% else %}Search CRICOS Courses and Providers{% endif %}">
-<meta name="twitter:description" content="{% if city and course %}CRICOS-listed {{ course|lower }} courses and providers in {{ city|title }}.{% elif city %}CRICOS courses and providers in {{ city|title }}.{% else %}Search CRICOS-listed providers and courses by city, keyword or study area in Australia.{% endif %}">
+<meta name="twitter:title" content="{% if city and course %}{{ course|title }} Courses in {{ city|title }} | CRICOS Finder{% elif city %}CRICOS Courses in {{ city|title }} | CRICOS Finder{% else %}CRICOS Courses in Australia | Search Courses for International Students{% endif %}">
+<meta name="twitter:description" content="{% if city and course %}CRICOS-listed {{ course|lower }} courses and providers in {{ city|title }}.{% elif city %}CRICOS courses and providers in {{ city|title }}.{% else %}Search CRICOS registered courses in Australia. Find programs offered by approved education providers for international students across cities and study areas.{% endif %}">
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -44,16 +51,71 @@
         {% elif city %}
         <h1 class="h3 mb-2">CRICOS Courses in {{ city|title }}</h1>
         {% else %}
-        <h1 class="h3 mb-2">Find CRICOS courses, providers and study locations in Australia</h1>
+        <h1 class="h3 mb-2">Search CRICOS Courses in Australia</h1>
         {% endif %}
-        <p class="text-muted mb-3">Search official CRICOS-listed education providers and courses by city, study area or institution.</p>
+        {% if not city and not course %}
+        <p>
+            CRICOS Finder helps international students discover CRICOS registered courses offered by approved education providers across Australia.
+        </p>
+        <p class="text-muted mb-3">
+            Use the search tool to find courses by city, provider, study field, qualification level or CRICOS course code. The platform organizes official CRICOS data into easy-to-navigate listings so you can explore study options across Australian universities, colleges and training institutions.
+        </p>
+        {% else %}
+        <p class="text-muted mb-3">Search official CRICOS-listed education providers and courses by city, study area, institution or qualification level.</p>
+        {% endif %}
 
         {% include "snippets/search_panel.html" %}
     </div>
 </section>
 
 {% if not city and not course %}
-<div class="alert alert-secondary">Enter a city or keyword to start searching.</div>
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <p class="mb-3">
+            Australia offers thousands of CRICOS registered courses for international students across universities, colleges and training institutions. These programs are officially approved to be delivered to overseas students studying on an Australian student visa.
+        </p>
+        <p class="mb-0">
+            CRICOS courses cover a wide range of fields including business, information technology, engineering, nursing, hospitality, English language training and community services. Programs are available in major Australian study destinations such as Sydney, Melbourne, Brisbane, Perth and Adelaide, as well as many regional cities.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <p class="mb-3">
+            The CRICOS Finder search tool helps students explore these opportunities by organizing official CRICOS data into searchable course listings. You can browse programs by provider, compare courses by city, or discover study options within specific academic fields.
+        </p>
+        <p class="mb-0">
+            Each course listed on CRICOS Finder includes important reference information such as the course name, CRICOS code, education provider and study location. These details help students identify programs that are approved for international enrolment in Australia.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <p class="mb-0">
+            While CRICOS Finder makes it easier to discover available courses, students should always confirm key details directly with the education provider or through the official government CRICOS register before submitting an application.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-3">FAQ</h2>
+        <div class="mb-3">
+            <h3 class="h6 mb-1">What are CRICOS courses?</h3>
+            <p class="mb-0">CRICOS courses are programs offered by Australian education providers that are officially approved to be delivered to international students on a student visa.</p>
+        </div>
+        <div class="mb-3">
+            <h3 class="h6 mb-1">Can international students study any course in Australia?</h3>
+            <p class="mb-0">International students must enroll in a course that is listed on the Commonwealth Register of Institutions and Courses for Overseas Students (CRICOS).</p>
+        </div>
+        <div>
+            <h3 class="h6 mb-1">How can I search for CRICOS courses?</h3>
+            <p class="mb-0">You can search CRICOS courses by provider, city, study area or course name using the CRICOS Finder search tool.</p>
+        </div>
+    </div>
+</section>
 {% endif %}
 
 {% if page_obj and page_obj.object_list %}

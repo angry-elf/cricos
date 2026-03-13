@@ -11,7 +11,7 @@
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/site-logo.png' %}">
 
     <link href="{% static 'icon/favicon.ico' %}" rel="icon" />
-    <title>{% block title %}{% endblock %} | CRICOS Finder</title>
+    <title>{% block full_title %}{% block title %}{% endblock %} | CRICOS Finder{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 {% block head %}{% endblock %}
 </head>

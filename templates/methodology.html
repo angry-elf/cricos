@@ -1,42 +1,128 @@
 {% extends "base.html" %}
 
-{% block title %}{{ seo_title|default:"CRICOS Finder Methodology" }}{% endblock %}
+{% block full_title %}CRICOS Finder Methodology | How CRICOS Course and Provider Data Is Processed{% endblock %}
 
 {% block head %}
-<meta name="description" content="{{ seo_description|default:'How CRICOS Finder imports, structures and presents publicly available CRICOS data.' }}">
+<meta name="description" content="Learn how CRICOS Finder processes official CRICOS data to build searchable pages for courses, providers and cities across Australia.">
 
 <link rel="canonical" href="{{ canonical_url }}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="{{ seo_title }}">
-<meta property="og:description" content="{{ seo_description }}">
+<meta property="og:title" content="CRICOS Finder Methodology | How CRICOS Course and Provider Data Is Processed">
+<meta property="og:description" content="Learn how CRICOS Finder processes official CRICOS data to build searchable pages for courses, providers and cities across Australia.">
 <meta property="og:url" content="{{ canonical_url }}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ seo_title }}">
-<meta name="twitter:description" content="{{ seo_description }}">
+<meta name="twitter:title" content="CRICOS Finder Methodology | How CRICOS Course and Provider Data Is Processed">
+<meta name="twitter:description" content="Learn how CRICOS Finder processes official CRICOS data to build searchable pages for courses, providers and cities across Australia.">
 {% endblock %}
 
 {% block breadcrumbs %}
-<li class="breadcrumb-item active" aria-current="page">Methodology</li>
+<li class="breadcrumb-item active" aria-current="page">CRICOS Finder Methodology</li>
 {% endblock %}
 
 {% block content %}
 <section class="card border-0 shadow-sm mb-4">
     <div class="card-body p-md-4">
-        <h1 class="h3 mb-2">Methodology</h1>
-        <p class="mb-3">
-            CRICOS Finder processes publicly available CRICOS records into searchable pages by provider, city and study area.
+        <h1 class="h3 mb-3">CRICOS Finder Methodology</h1>
+        <p>
+            CRICOS Finder organizes publicly available CRICOS data into structured and searchable pages that help international students explore study opportunities in Australia.
         </p>
-        <ol class="mb-3">
-            <li>Import the latest available CRICOS dataset.</li>
-            <li>Normalize providers, courses and campus locations.</li>
-            <li>Generate searchable pages and internal links for city, provider and course intent.</li>
-            <li>Display data as reference content and link users to official sources for final checks.</li>
-        </ol>
-        <ul class="mb-0 small text-muted">
-            <li>Last updated: {% if data_last_updated %}{{ data_last_updated|date:"F j, Y" }}{% else %}Not available{% endif %}</li>
-            <li>Dataset file: {% if dataset %}{{ dataset.source_file_name|default:"Not available" }}{% else %}Not available{% endif %}</li>
-            <li>Source details: <a href="{% url 'data_source' %}">Data Source</a></li>
+        <p class="mb-0">
+            The platform processes official CRICOS datasets and converts them into easy-to-navigate pages for courses, providers, cities and study areas.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">Data Source</h2>
+        <p>
+            All information displayed on CRICOS Finder is derived from publicly available CRICOS records provided by the Australian Government.
+            CRICOS (Commonwealth Register of Institutions and Courses for Overseas Students) is the official registry of Australian education providers and courses approved to deliver programs to international students on a student visa.
+        </p>
+        <p class="mb-0">
+            To ensure accuracy, CRICOS Finder imports the latest available dataset and uses it as the primary source for course, provider and campus information.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">Data Processing</h2>
+        <p class="mb-2">
+            After importing the CRICOS dataset, the data is processed and structured into several components:
+        </p>
+        <ul>
+            <li>education providers</li>
+            <li>registered courses</li>
+            <li>campus locations</li>
+            <li>study areas and course categories</li>
         </ul>
+        <p class="mb-0">
+            During this step the system standardizes provider names, course titles and location data to improve consistency and searchability across the website.
+            Duplicate or inconsistent location formats are normalized so that users can easily browse courses by city or study destination.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">Page Generation</h2>
+        <p class="mb-2">
+            CRICOS Finder automatically generates structured pages that allow users to explore the dataset through multiple navigation paths.
+            The platform creates searchable pages for:
+        </p>
+        <ul>
+            <li>individual education providers</li>
+            <li>Australian cities and study destinations</li>
+            <li>study areas and course fields</li>
+            <li>course search results and listings</li>
+        </ul>
+        <p class="mb-0">
+            These pages are internally linked so users can move easily between providers, courses, cities and study areas.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">Search and Discovery</h2>
+        <p class="mb-2">
+            The search system allows visitors to find CRICOS-registered courses and providers using different types of queries.
+            Users can search by:
+        </p>
+        <ul>
+            <li>course name</li>
+            <li>provider name</li>
+            <li>CRICOS course code</li>
+            <li>provider code</li>
+            <li>study field or qualification level</li>
+            <li>city or study destination</li>
+        </ul>
+        <p class="mb-0">
+            This flexible search structure helps international students compare study options across Australia.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">Data Usage and Limitations</h2>
+        <p>
+            CRICOS Finder displays data for informational and discovery purposes.
+            While the information is sourced from official CRICOS records, users should always verify critical details directly with the education provider or the official government CRICOS website before applying.
+        </p>
+        <p class="mb-0">
+            Course availability, campus locations and provider details may change over time as institutions update their CRICOS registrations.
+        </p>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-md-4">
+        <h2 class="h5 mb-2">Dataset Information</h2>
+        <p class="mb-2">Last dataset update: {% if data_last_updated %}{{ data_last_updated|date:"F j, Y" }}{% else %}Not available{% endif %}</p>
+        <p class="mb-2">Dataset file: {% if dataset %}{{ dataset.source_file_name|default:"Not available" }}{% else %}Not available{% endif %}</p>
+        <p class="mb-0">Source details can be found on the <a href="{% url 'data_source' %}">Data Source page</a>.</p>
     </div>
 </section>
 {% endblock %}

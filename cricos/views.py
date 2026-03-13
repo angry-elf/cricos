@@ -363,8 +363,6 @@ def methodology(request):
         {
             "dataset": dataset,
             "data_last_updated": data_last_updated,
-            "seo_title": "CRICOS Finder Methodology",
-            "seo_description": "How CRICOS Finder imports, structures and presents publicly available CRICOS data.",
             "canonical_url": request.build_absolute_uri(request.path),
         },
     )
