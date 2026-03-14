@@ -2,4 +2,4 @@ MAILTO=atwork@elfov.net
 DJANGO_SETTINGS_MODULE=cricos.settings_production
 ENVIRONMENT=production
 
-*/15 * * * * /home/cricos/venv/bin/python /home/cricos/manage.py sitemaps_update cricos.com -v 3
+*/15 * * * * /home/cricos/venv/bin/python /home/cricos/manage.py sitemaps_update cricos.net -v 3

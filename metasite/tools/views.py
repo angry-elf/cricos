@@ -14,7 +14,7 @@ def sitemap_serve(request, index=None):
     else:
         path = 'sitemap_index.xml'
 
-    return serve(request, path, os.path.join(settings.SITEMAPS_ROOT, 'cricos.com'))
+    return serve(request, path, os.path.join(settings.SITEMAPS_ROOT, 'cricos.net'))
 
 
 def policy(request):

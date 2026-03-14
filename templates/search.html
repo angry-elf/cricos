@@ -142,11 +142,11 @@
                     {% for row in page_obj.object_list %}
                     <tr>
                         <td>
-                            <a href="{% url 'provider' row.provider_code %}">{{ row.institution.institution_name }}</a>
+                            <a href="{{ row.institution.get_absolute_url }}">{{ row.institution.institution_name }}</a>
                             <div class="small text-muted">Provider {{ row.provider_code }}</div>
                         </td>
                         <td>
-                            <a href="{% url 'course_detail' row.provider_code row.course_code %}">{{ row.course_name }}</a>
+                            <a href="{{ row.get_absolute_url }}">{{ row.course_name }}</a>
                             <div class="small text-muted">Code {{ row.course_code }}</div>
                         </td>
                         <td class="small">

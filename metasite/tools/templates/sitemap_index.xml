@@ -2,7 +2,7 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     {% for page in pages %}
     <sitemap>
-        <loc>https://cricos.com{% url "sitemap" page %}</loc>
+        <loc>https://cricos.net{% url "sitemap" page %}</loc>
     </sitemap>
     {% endfor %}
 </sitemapindex>

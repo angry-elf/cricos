@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "metasite.tools",
     "django_bootstrap5",
     "debug_toolbar",
     "cricos",
@@ -135,7 +136,14 @@ METASITE_TOKEN = '65fed24f-db58-45ab-bc27-a9dc64826d65'
 METASITE_BACKEND = 'http://127.0.0.1:8019'
 
 SITEMAPS_SOURCES = [
+    ('cricos.sitemap', 'PageSitemap'),
     ('cricos.sitemap', 'BlogSitemap'),
+    ('cricos.sitemap', 'ProviderSitemap'),
+    ('cricos.sitemap', 'CourseSitemap'),
+    ('cricos.sitemap', 'CitySearchSitemap'),
+    ('cricos.sitemap', 'StudyAreaSearchSitemap'),
+    ('cricos.sitemap', 'StateSearchSitemap'),
+    ('cricos.sitemap', 'PopularCombinationSitemap'),
 ]
 
 SITEMAPS_ROOT = os.path.join(BASE_DIR, 'sitemaps_cache')

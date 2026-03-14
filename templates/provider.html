@@ -18,7 +18,7 @@
 {% block breadcrumbs %}
 <li class="breadcrumb-item"><a href="{% url 'providers' %}">Providers</a></li>
 {% if page_obj.number > 1 %}
-<li class="breadcrumb-item"><a href="{% url 'provider' institution.provider_code %}">{{ institution.institution_name }}</a></li>
+<li class="breadcrumb-item"><a href="{{ institution.get_absolute_url }}">{{ institution.institution_name }}</a></li>
 <li class="breadcrumb-item active" aria-current="page">Page {{ page_obj.number }}</li>
 {% else %}
 <li class="breadcrumb-item active" aria-current="page">{{ institution.institution_name }}</li>
@@ -98,7 +98,7 @@
                     {% for row in page_obj.object_list %}
                     <tr>
                         <td>
-                            <a href="{% url 'course_detail' row.provider_code row.course_code %}">{{ row.course_name }}</a>
+                            <a href="{{ row.get_absolute_url }}">{{ row.course_name }}</a>
                             <div class="small text-muted">Code {{ row.course_code }}</div>
                         </td>
                         <td class="small">

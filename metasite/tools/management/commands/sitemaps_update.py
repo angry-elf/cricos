@@ -43,7 +43,7 @@ class Command(BaseCommand):
         #     print("Error loading sites list")
         #     return -1
 
-        for site in [{'hostname': 'cricos.com', 'scheme': 'https'}]:
+        for site in [{'hostname': 'cricos.net', 'scheme': 'https'}]:
             if options['hostname'] and not site['hostname'] in options['hostname']:
                 if verbose:
                     print("Skipping %s" % site['hostname'])

@@ -18,7 +18,7 @@
 {% block breadcrumbs %}
 <li class="breadcrumb-item"><a href="{% url 'providers' %}">Providers</a></li>
 <li class="breadcrumb-item">
-    <a href="{% url 'provider' course.institution.provider_code %}">{{ course.institution.institution_name }}</a>
+    <a href="{{ course.institution.get_absolute_url }}">{{ course.institution.institution_name }}</a>
 </li>
 <li class="breadcrumb-item active" aria-current="page">{{ course.course_name }}</li>
 {% endblock %}
@@ -32,11 +32,11 @@
                 <p class="text-muted mb-2">CRICOS course code: <strong>{{ course.course_code }}</strong></p>
                 <p class="mb-0">
                     <span class="small text-muted">Provider:</span>
-                    <a href="{% url 'provider' course.institution.provider_code %}" class="fw-semibold">{{ course.institution.institution_name }}</a>
+                    <a href="{{ course.institution.get_absolute_url }}" class="fw-semibold">{{ course.institution.institution_name }}</a>
                 </p>
             </div>
             <div class="text-md-end">
-                <a href="{% url 'provider' course.institution.provider_code %}" class="btn btn-outline-primary btn-sm">Open Provider Page</a>
+                <a href="{{ course.institution.get_absolute_url }}" class="btn btn-outline-primary btn-sm">Open Provider Page</a>
                 <div class="small text-muted mt-2">Provider code: {{ course.institution.provider_code }}</div>
             </div>
         </div>

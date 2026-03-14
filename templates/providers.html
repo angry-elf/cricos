@@ -49,7 +49,7 @@
                 <tbody>
                     {% for provider in page_obj.object_list %}
                     <tr>
-                        <td><a href="{% url 'provider' provider.provider_code %}">{{ provider.institution_name }}</a></td>
+                        <td><a href="{{ provider.get_absolute_url }}">{{ provider.institution_name }}</a></td>
                         <td>{{ provider.provider_code }}</td>
                         <td class="small">
                             {% if provider.locations %}

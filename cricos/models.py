@@ -178,6 +178,9 @@ class Institution(models.Model):
     def __str__(self):
         return self.institution_name or self.provider_code
 
+    def get_absolute_url(self):
+        return reverse("provider", args=[self.provider_code])
+
 
 class Course(models.Model):
     dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE)
@@ -212,6 +215,9 @@ class Course(models.Model):
 
     def __str__(self):
         return self.course_name or self.course_code
+
+    def get_absolute_url(self):
+        return reverse("course_detail", args=[self.provider_code, self.course_code])
 
     @classmethod
     def search_courses(cls, dataset_id, city="", course_query=""):

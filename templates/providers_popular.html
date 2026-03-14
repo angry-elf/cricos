@@ -36,7 +36,7 @@
     <div class="row g-3">
         {% for provider in featured_providers %}
         <div class="col-12 col-md-6 col-lg-4">
-            <a href="{% url 'provider' provider.provider_code %}" class="card border-0 shadow-sm h-100 text-decoration-none">
+            <a href="{{ provider.get_absolute_url }}" class="card border-0 shadow-sm h-100 text-decoration-none">
                 <div class="card-body">
                     <h3 class="h6 text-dark mb-1">{{ provider.institution_name }}</h3>
                     <div class="small text-muted mb-2">Provider code: {{ provider.provider_code }}</div>
