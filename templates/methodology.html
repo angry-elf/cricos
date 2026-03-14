@@ -5,11 +5,11 @@
 {% block head %}
 <meta name="description" content="Learn how CRICOS Finder processes official CRICOS data to build searchable pages for courses, providers and cities across Australia.">
 
-<link rel="canonical" href="{{ canonical_url }}">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="CRICOS Finder Methodology | How CRICOS Course and Provider Data Is Processed">
 <meta property="og:description" content="Learn how CRICOS Finder processes official CRICOS data to build searchable pages for courses, providers and cities across Australia.">
-<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CRICOS Finder Methodology | How CRICOS Course and Provider Data Is Processed">
 <meta name="twitter:description" content="Learn how CRICOS Finder processes official CRICOS data to build searchable pages for courses, providers and cities across Australia.">

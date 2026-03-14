@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block full_title %}Frequently Asked Questions | CRICOS Finder{% endblock %}
+
+{% block head %}
+<meta name="description" content="Frequently asked questions about CRICOS, CRICOS Finder, data sources, and how to verify course information.">
+<meta property="og:title" content="Frequently Asked Questions | CRICOS Finder">
+<meta property="og:description" content="Frequently asked questions about CRICOS, CRICOS Finder, data sources, and how to verify course information.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Frequently Asked Questions | CRICOS Finder">
+<meta name="twitter:description" content="Frequently asked questions about CRICOS, CRICOS Finder, data sources, and how to verify course information.">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+{% endblock %}
+
+{% block breadcrumbs %}
+<li class="breadcrumb-item active" aria-current="page">FAQ</li>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <h1 class="h3 mb-3">Frequently Asked Questions</h1>
+
+        <section class="mb-4">
+            <h2 class="h5">What is CRICOS?</h2>
+            <p>
+                CRICOS stands for the Commonwealth Register of Institutions and Courses for Overseas Students. It is the official Australian government register that lists education providers and courses approved to teach international students studying on a student visa in Australia.
+            </p>
+            <p class="mb-0">
+                Only courses and institutions listed on the CRICOS register are authorised to enrol overseas students.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">What is CRICOS Finder?</h2>
+            <p class="mb-0">
+                CRICOS Finder is an independent search tool that helps users explore publicly available information about CRICOS-registered education providers, courses, and study locations across Australia. The website organizes official CRICOS data into simple, structured pages that make it easier to browse courses by provider, city, or study area.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">Is CRICOS Finder an official government website?</h2>
+            <p class="mb-0">
+                No. CRICOS Finder is an independent informational website and is not affiliated with the Australian Government. For official information about CRICOS providers and courses, users should always refer to the official CRICOS register.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">Where does the data come from?</h2>
+            <p>
+                CRICOS Finder uses publicly available data from the official CRICOS register maintained by the Australian Government.
+            </p>
+            <p class="mb-2">The dataset includes information about:</p>
+            <ul>
+                <li>CRICOS registered education providers</li>
+                <li>approved courses for international students</li>
+                <li>campus locations and study cities</li>
+                <li>provider codes and course codes</li>
+            </ul>
+            <p class="mb-0">
+                The data is processed and organized to make it easier to search and compare education options.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">Can I apply for courses through CRICOS Finder?</h2>
+            <p class="mb-0">
+                No. CRICOS Finder is a search and discovery platform only. Applications must be made directly with the education provider or through official application channels.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">How can I verify course information?</h2>
+            <p class="mb-0">
+                Before applying for a course, students should verify important details directly with the education provider or through the official CRICOS register. Course availability, tuition fees, duration, and campus locations may change over time.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">Who is this website for?</h2>
+            <p class="mb-0">
+                CRICOS Finder is primarily designed for international students who want to explore study opportunities in Australia. The website may also be useful for education agents, researchers, and anyone interested in understanding the structure of CRICOS-registered education providers and courses.
+            </p>
+        </section>
+
+        <section class="mb-4">
+            <h2 class="h5">What can I do on this website?</h2>
+            <p class="mb-2">Users can:</p>
+            <ul>
+                <li>search CRICOS courses by city or keyword</li>
+                <li>browse education providers and view their courses</li>
+                <li>explore study opportunities in different Australian cities</li>
+                <li>discover programs by study area or field</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="h5">How can I report incorrect information?</h2>
+            <p class="mb-0">
+                If you notice incorrect provider information, course details, or other issues on the website, you can contact the site operator using the <a href="{% url 'contact' %}">Contact page</a>. Feedback and correction requests help improve the accuracy of the platform.
+            </p>
+        </section>
+    </div>
+</div>
+{% endblock %}

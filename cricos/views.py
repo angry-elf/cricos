@@ -346,7 +346,7 @@ def journal_list(request):
 
 
 def faq(request):
-    return render(request, "about.html")
+    return render(request, "faq.html")
 
 
 def about(request):
@@ -363,7 +363,6 @@ def methodology(request):
         {
             "dataset": dataset,
             "data_last_updated": data_last_updated,
-            "canonical_url": request.build_absolute_uri(request.path),
         },
     )
 
@@ -378,20 +377,9 @@ def disclaimer(request):
         {
             "dataset": dataset,
             "data_last_updated": data_last_updated,
-            "seo_title": "CRICOS Finder Disclaimer",
-            "seo_description": "Important legal and data-accuracy disclaimer for using CRICOS Finder content.",
-            "canonical_url": request.build_absolute_uri(request.path),
         },
     )
 
 
 def contact(request):
-    return render(
-        request,
-        "contact.html",
-        {
-            "seo_title": "Contact CRICOS Finder",
-            "seo_description": "Contact page for CRICOS Finder questions, corrections and feedback.",
-            "canonical_url": request.build_absolute_uri(request.path),
-        },
-    )
+    return render(request, "contact.html")

@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}{{ seo_title|default:"CRICOS Finder Disclaimer" }}{% endblock %}
+{% block title %}CRICOS Finder Disclaimer{% endblock %}
 
 {% block head %}
-<meta name="description" content="{{ seo_description|default:'Important legal and data-accuracy disclaimer for using CRICOS Finder content.' }}">
+<meta name="description" content="Independent informational disclaimer for CRICOS Finder and its public CRICOS data pages.">
 
-<link rel="canonical" href="{{ canonical_url }}">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="{{ seo_title }}">
-<meta property="og:description" content="{{ seo_description }}">
-<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:title" content="CRICOS Finder Disclaimer">
+<meta property="og:description" content="Independent informational disclaimer for CRICOS Finder and its public CRICOS data pages.">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ seo_title }}">
-<meta name="twitter:description" content="{{ seo_description }}">
+<meta name="twitter:title" content="CRICOS Finder Disclaimer">
+<meta name="twitter:description" content="Independent informational disclaimer for CRICOS Finder and its public CRICOS data pages.">
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -24,15 +24,25 @@
     <div class="card-body p-md-4">
         <h1 class="h3 mb-2">Disclaimer</h1>
         <p class="mb-2">
-            CRICOS Finder is built for easier exploration of public CRICOS information. It is not an official government website.
+            CRICOS Finder is an independent informational website designed to help users explore publicly available information about CRICOS-registered education providers, courses, study areas, and locations in Australia.
         </p>
         <p class="mb-2">
-            Course availability, tuition, duration, campus locations and provider status may change without notice. Always verify important details
-            with the official CRICOS register or the education provider before applying.
+            The website is not an official government website and is not affiliated with the Australian Government or the official CRICOS register.
+        </p>
+        <p class="mb-2">
+            CRICOS Finder aggregates publicly available data to make it easier for international students and researchers to search and compare education providers, courses, and study destinations.
+        </p>
+        <p class="mb-2">
+            While we aim to present information in a clear and useful way, course availability, tuition fees, program duration, campus locations, and provider status may change at any time.
+        </p>
+        <p class="mb-2">
+            Users should always verify important details directly with the official CRICOS register or with the relevant education provider before applying for a course or making decisions related to study or visa applications.
+        </p>
+        <p class="mb-2">
+            CRICOS Finder does not provide legal, migration, visa, or educational advice. All information presented on this website is for general informational purposes only.
         </p>
         <p class="mb-0">
-            Official source: <a href="https://cricos.education.gov.au/" target="_blank" rel="noopener noreferrer nofollow external" referrerpolicy="no-referrer">CRICOS official register</a>.
-            See also <a href="{% url 'data_source' %}">Data Source</a> and <a href="{% url 'methodology' %}">Methodology</a>.
+            Official source: <a href="https://cricos.education.gov.au/" target="_blank" rel="noopener noreferrer nofollow external" referrerpolicy="no-referrer">CRICOS official register</a>. See also <a href="{% url 'data_source' %}">Data Source</a> and <a href="{% url 'methodology' %}">Methodology</a>.
         </p>
     </div>
 </section>

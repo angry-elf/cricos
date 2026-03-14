@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
-{% block title %}{{ seo_title|default:"Contact CRICOS Finder" }}{% endblock %}
+{% block title %}Contact CRICOS Finder{% endblock %}
 
 {% block head %}
-<meta name="description" content="{{ seo_description|default:'Contact page for CRICOS Finder questions, corrections and feedback.' }}">
+<meta name="description" content="Contact CRICOS Finder for corrections, feedback, and general project questions.">
 
-<link rel="canonical" href="{{ canonical_url }}">
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="{{ seo_title }}">
-<meta property="og:description" content="{{ seo_description }}">
-<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:title" content="Contact CRICOS Finder">
+<meta property="og:description" content="Contact CRICOS Finder for corrections, feedback, and general project questions.">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ seo_title }}">
-<meta name="twitter:description" content="{{ seo_description }}">
+<meta name="twitter:title" content="Contact CRICOS Finder">
+<meta name="twitter:description" content="Contact CRICOS Finder for corrections, feedback, and general project questions.">
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -24,12 +24,33 @@
     <div class="card-body p-md-4">
         <h1 class="h3 mb-2">Contact CRICOS Finder</h1>
         <p class="mb-3">
-            Use this page for feedback, correction requests, or general questions about the project.
+            CRICOS Finder is an independent project that helps users explore publicly available information about CRICOS-registered education providers, courses, and study locations in Australia.
         </p>
+        <p class="mb-3">
+            If you notice incorrect information, have suggestions for improving the site, or would like to ask a general question about the project, you can contact us.
+        </p>
+        <p class="mb-2">Typical contact reasons include:</p>
+        <ul>
+            <li>reporting incorrect provider or course information</li>
+            <li>suggesting improvements to the search system</li>
+            <li>general feedback about the website</li>
+            <li>technical issues</li>
+        </ul>
+        <p class="mb-3">
+            Please note that CRICOS Finder cannot provide visa, migration, or education advice.
+        </p>
+        <p class="mb-3">
+            For official information about education providers or courses, please contact the provider directly or refer to the official CRICOS register.
+        </p>
+        <p class="mb-3">
+            <strong>Email contact:</strong><br>
+            <a href="mailto:contact@cricos.net">contact@cricos.net</a>
+        </p>
+        <p class="mb-2">Additional information about the project can be found on the following pages:</p>
         <ul class="mb-0">
-            <li>For data source details: <a href="{% url 'data_source' %}">Data Source</a></li>
-            <li>For data processing details: <a href="{% url 'methodology' %}">Methodology</a></li>
-            <li>For legal notice: <a href="{% url 'disclaimer' %}">Disclaimer</a></li>
+            <li><a href="{% url 'data_source' %}">Data Source</a></li>
+            <li><a href="{% url 'methodology' %}">Methodology</a></li>
+            <li><a href="{% url 'disclaimer' %}">Disclaimer</a></li>
         </ul>
     </div>
 </section>
