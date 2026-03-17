@@ -29,7 +29,7 @@ def home(request):
         Prefetch("location_set", to_attr="locations"),
     )[:settings.MAX_PAGE_SIZE]
 
-    latest_guides = BlogPost.objects.filter(is_published=True)[:settings.MAX_PAGE_SIZE]
+    latest_guides = BlogPost.objects.filter(is_published=True).order_by("-publish_date")[:settings.MAX_PAGE_SIZE]
 
     return render(
         request,
@@ -71,12 +71,10 @@ def search(request, city_slug="", course_slug=""):
     city = city_slug.replace("-", " ").title()
     course = course_slug.replace("-", " ")
 
-    page_obj = None
-    if city or course:
-        dataset_id = Dataset.objects.only("id").get(is_current=True).id
-        courses = Course.search_courses(dataset_id=dataset_id, city=city, course_query=course)
-        paginator = Paginator(courses, settings.MAX_PAGE_SIZE)
-        page_obj = paginator.get_page(request.GET.get("page"))
+    dataset_id = Dataset.objects.only("id").get(is_current=True).id
+    courses = Course.search_courses(dataset_id=dataset_id, city=city, course_query=course)
+    paginator = Paginator(courses, settings.MAX_PAGE_SIZE)
+    page_obj = paginator.get_page(request.GET.get("page"))
 
     return render(
         request,

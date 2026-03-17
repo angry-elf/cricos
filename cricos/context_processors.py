@@ -13,7 +13,7 @@ def menu(request):
         },
         {
             'title': _('Providers'),
-            'url': reverse('providers'),
+            'url': reverse('popular_providers'),
         },
         {
             'title': _('Cities'),
