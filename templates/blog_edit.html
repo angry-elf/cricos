@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             table: Table,
             raw: RawTool,
         },
-        data: {{ post.content|default:"{}"|safe }}
+        data: {{ form.content.value|default:"{}"|safe }}
     });
 
     document.getElementById('blog-form').addEventListener('submit', function(e) {
